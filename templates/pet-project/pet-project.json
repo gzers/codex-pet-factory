@@ -1,0 +1,69 @@
+{
+  "id": "example-pet",
+  "displayName": "示例宠物",
+  "description": "A scaffolded Codex Pet project.",
+  "cell": [
+    192,
+    208
+  ],
+  "grid": [
+    8,
+    9
+  ],
+  "states": [
+    {
+      "row": 0,
+      "state": "idle",
+      "note": "待机",
+      "frames": 6
+    },
+    {
+      "row": 1,
+      "state": "running-right",
+      "note": "向右奔跑",
+      "frames": 8
+    },
+    {
+      "row": 2,
+      "state": "running-left",
+      "note": "向左奔跑",
+      "frames": 8
+    },
+    {
+      "row": 3,
+      "state": "waving",
+      "note": "挥手或打招呼",
+      "frames": 4
+    },
+    {
+      "row": 4,
+      "state": "jumping",
+      "note": "跳跃或翻滚",
+      "frames": 5
+    },
+    {
+      "row": 5,
+      "state": "failed",
+      "note": "失败或哭泣",
+      "frames": 8
+    },
+    {
+      "row": 6,
+      "state": "waiting",
+      "note": "等待或躺倒",
+      "frames": 6
+    },
+    {
+      "row": 7,
+      "state": "running",
+      "note": "原地循环动作",
+      "frames": 6
+    },
+    {
+      "row": 8,
+      "state": "review",
+      "note": "趣味彩蛋动作",
+      "frames": 6
+    }
+  ]
+}

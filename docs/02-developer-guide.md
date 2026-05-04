@@ -1,0 +1,86 @@
+# Developer Guide
+
+中文文档：[02-developer-guide.zh-CN.md](02-developer-guide.zh-CN.md)
+
+## Design Goal
+
+Codex Pet Factory owns the stable engineering layer:
+
+- Create the pet project structure.
+- Define the default Codex Pet atlas specification.
+- Package normalized PNG frames into `spritesheet.webp`.
+- Generate `pet.json`.
+- Output `contact-sheet.png` and `validate.json`.
+- Install the pet into the Codex Pets directory.
+
+It does not bind the workflow to a specific image generation provider. Agents may use any available image generation or image editing capability as long as the final output is normalized frames.
+
+## CLI Module
+
+Entry point:
+
+```text
+src/codex_pet_factory/cli.py
+```
+
+Commands:
+
+- `scaffold`: create the project directory and `pet-project.json`.
+- `build`: package the atlas, runtime manifest, contact sheet, and QA notes.
+- `validate`: rebuild validation output and exit non-zero when errors exist.
+- `install`: copy outputs into `${HOME}/.codex/pets/<pet-id>/`.
+
+## Project Manifest
+
+`pet-project.json` is the project manifest. It is not the runtime Codex Pet manifest.
+
+Example:
+
+```json
+{
+  "id": "juice",
+  "displayName": "Juice",
+  "description": "Custom Codex Pet named Juice.",
+  "cell": [192, 208],
+  "grid": [8, 9]
+}
+```
+
+`build/<pet-id>/pet.json` is the runtime manifest used by Codex Pets.
+
+## Normalized Frames
+
+The builder reads only:
+
+```text
+assets/generated/<state>/normalized/frame-00.png
+```
+
+If a pet needs custom matting, scaling, mirroring, or pixel repair, keep that logic in the specific pet project. Factory should remain generic.
+
+## Tests
+
+Run tests with the standard library:
+
+```bash
+python3 -m unittest discover -s tests
+```
+
+The build test is skipped when Pillow is not available. `--help` and `scaffold` must work without Pillow.
+
+## Skill
+
+The skill lives at:
+
+```text
+skills/codex-pet-factory/
+```
+
+The skill teaches agents the harness workflow. It does not replace the CLI.
+
+Skill documents:
+
+- English: [SKILL.md](../skills/codex-pet-factory/SKILL.md)
+- Chinese: [SKILL.zh-CN.md](../skills/codex-pet-factory/SKILL.zh-CN.md)
+- Production reference: [pet-production.md](../skills/codex-pet-factory/references/pet-production.md)
+- Chinese production reference: [pet-production.zh-CN.md](../skills/codex-pet-factory/references/pet-production.zh-CN.md)

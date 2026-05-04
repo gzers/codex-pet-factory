@@ -1,0 +1,18 @@
+[project]
+name = "codex-pet-factory"
+version = "0.1.0"
+description = "Reusable Codex Pet scaffold, atlas builder, validator, installer, and agent skill."
+requires-python = ">=3.10"
+dependencies = [
+  "Pillow>=10.0",
+]
+
+[project.scripts]
+codex-pet-factory = "codex_pet_factory.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
