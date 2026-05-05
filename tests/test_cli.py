@@ -62,6 +62,8 @@ class CliTests(unittest.TestCase):
             self.assertTrue((project / "docs/README.zh-CN.md").exists())
             self.assertTrue((project / "docs/01-action-design.md").exists())
             self.assertTrue((project / "docs/01-action-design.zh-CN.md").exists())
+            self.assertTrue((project / "docs/03-interaction-checklist.md").exists())
+            self.assertTrue((project / "docs/03-interaction-checklist.zh-CN.md").exists())
             self.assertIn("[文档](docs/README.zh-CN.md)", (project / "README.md").read_text(encoding="utf-8"))
             self.assertIn("[Docs](docs/README.md)", (project / "README.zh-CN.md").read_text(encoding="utf-8"))
 
@@ -102,6 +104,7 @@ class CliTests(unittest.TestCase):
             self.assertEqual(json.loads(result.stdout)["errors"], [])
             self.assertTrue((project / "build/complete-pet/pet.json").exists())
             self.assertTrue((project / "build/complete-pet/contact-sheet.png").exists())
+            self.assertTrue((project / "build/complete-pet/preview.html").exists())
 
 
 if __name__ == "__main__":

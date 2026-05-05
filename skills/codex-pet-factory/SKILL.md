@@ -19,7 +19,7 @@ Use this skill to create a Codex desktop pet from a user-provided image, referen
 4. Generate or draw each action state as transparent PNG frames.
 5. Normalize every frame to `192 x 208`.
 6. Build and validate with `codex-pet-factory build`.
-7. Inspect `build/<pet-id>/contact-sheet.png`.
+7. Inspect `build/<pet-id>/contact-sheet.png`, `build/<pet-id>/preview.html`, and `docs/03-interaction-checklist.md`.
 8. Install with `codex-pet-factory install` only after QA passes.
 
 ## Commands
@@ -44,7 +44,8 @@ PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory scaffold 
 - Use `running-right` as the authored run; derive `running-left` by mirroring.
 - Keep all normalized frames `192 x 208` transparent PNG.
 - Do not install if `validate.json` contains errors.
-- Prefer contact sheet review before per-frame pixel surgery.
+- Prefer preview page and contact sheet review before per-frame pixel surgery.
+- Complete the generated interaction checklist before install.
 
 ## References
 

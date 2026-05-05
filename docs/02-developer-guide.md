@@ -10,7 +10,8 @@ Codex Pet Factory owns the stable engineering layer:
 - Define the default Codex Pet atlas specification.
 - Package normalized PNG frames into `spritesheet.webp`.
 - Generate `pet.json`.
-- Output `contact-sheet.png` and `validate.json`.
+- Output `contact-sheet.png`, `preview.html`, `validate.json`, and QA notes.
+- Generate an interaction checklist in scaffolded projects.
 - Install the pet into the Codex Pets directory.
 
 It does not bind the workflow to a specific image generation provider. Agents may use any available image generation or image editing capability as long as the final output is normalized frames.
@@ -26,7 +27,7 @@ src/codex_pet_factory/cli.py
 Commands:
 
 - `scaffold`: create the project directory and `pet-project.json`.
-- `build`: package the atlas, runtime manifest, contact sheet, and QA notes.
+- `build`: package the atlas, runtime manifest, contact sheet, preview page, validation output, and QA notes.
 - `validate`: rebuild validation output and exit non-zero when errors exist.
 - `install`: copy outputs into `${HOME}/.codex/pets/<pet-id>/`.
 
@@ -47,6 +48,17 @@ Example:
 ```
 
 `build/<pet-id>/pet.json` is the runtime manifest used by Codex Pets.
+
+## QA Outputs
+
+Each successful build writes these files to `build/<pet-id>/`:
+
+- `spritesheet.webp`: runtime sprite atlas.
+- `pet.json`: runtime manifest.
+- `contact-sheet.png`: static row-by-row inspection sheet.
+- `preview.html`: local interactive animation preview modeled after the Codex Pet runtime states.
+- `validate.json`: machine-readable frame metrics and errors.
+- `qa-notes.md`: concise review notes.
 
 ## Normalized Frames
 

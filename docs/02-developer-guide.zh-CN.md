@@ -10,7 +10,8 @@ Codex Pet Factory 只负责稳定工程部分：
 - 定义 Codex Pet 默认 atlas 规格。
 - 从 normalized PNG 帧打包 `spritesheet.webp`。
 - 生成 `pet.json`。
-- 输出 contact sheet 和 `validate.json`。
+- 输出 contact sheet、`preview.html`、`validate.json` 和 QA notes。
+- 在 scaffold 项目中生成交互清单。
 - 安装到 Codex Pets 目录。
 
 它不强制绑定某个图像生成服务。agent 可以使用任何可用的图片生成或编辑能力，只要最终落到 normalized frames。
@@ -26,7 +27,7 @@ src/codex_pet_factory/cli.py
 命令：
 
 - `scaffold`：创建项目目录和 `pet-project.json`。
-- `build`：打包 atlas、runtime manifest、contact sheet、QA notes。
+- `build`：打包 atlas、runtime manifest、contact sheet、预览页面、校验输出和 QA notes。
 - `validate`：重新生成校验结果，遇到错误退出非零。
 - `install`：复制到 `${HOME}/.codex/pets/<pet-id>/`。
 
@@ -47,6 +48,17 @@ src/codex_pet_factory/cli.py
 ```
 
 `build/<pet-id>/pet.json` 才是 Codex Pets 使用的 runtime manifest。
+
+## QA 产物
+
+每次成功 build 会在 `build/<pet-id>/` 写入：
+
+- `spritesheet.webp`：运行时 sprite atlas。
+- `pet.json`：运行时 manifest。
+- `contact-sheet.png`：按行展示的静态检查图。
+- `preview.html`：本地交互动画预览页，按 Codex Pet 状态播放。
+- `validate.json`：机器可读的帧指标和错误列表。
+- `qa-notes.md`：简短 QA 记录。
 
 ## Normalized Frames
 

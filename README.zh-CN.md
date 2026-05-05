@@ -11,6 +11,7 @@ English documentation: [README.md](README.md)
 | [Documentation Index](docs/README.md) | [文档传送门](docs/README.zh-CN.md) |
 | [Agent Workflow](docs/01-agent-workflow.md) | [Agent 工作流](docs/01-agent-workflow.zh-CN.md) |
 | [Developer Guide](docs/02-developer-guide.md) | [开发者说明](docs/02-developer-guide.zh-CN.md) |
+| 生成的交互清单 | scaffold 项目中的 `docs/03-interaction-checklist.md` | scaffold 项目中的 `docs/03-interaction-checklist.zh-CN.md` |
 | [Photo Example](examples/from-photo.md) | [照片示例](examples/from-photo.zh-CN.md) |
 | [Skill](skills/codex-pet-factory/SKILL.md) | [Skill 中文说明](skills/codex-pet-factory/SKILL.zh-CN.md) |
 | [Production Reference](skills/codex-pet-factory/references/pet-production.md) | [制作参考](skills/codex-pet-factory/references/pet-production.zh-CN.md) |
@@ -69,6 +70,7 @@ codex-pet-factory install ./my-pet
 - Atlas：`1536 x 1872` WebP RGBA。
 - 网格：8 列 x 9 行。
 - Manifest：`pet.json`，包含 `id`、`displayName`、`description`、`spritesheetPath`。
+- QA 产物：`contact-sheet.png`、`preview.html`、`validate.json`、`qa-notes.md`。
 - 安装目录：`${HOME}/.codex/pets/<pet-id>/`。
 
 ## 标准动作行
@@ -95,5 +97,5 @@ codex-pet-factory install ./my-pet
 4. 写 `docs/01-action-design.md`，明确每个状态的动作。
 5. 生成 `assets/generated/<state>/normalized/frame-XX.png`。
 6. 运行 build 和 validate。
-7. 查看 contact sheet。
+7. 查看 contact sheet、`preview.html` 和 `docs/03-interaction-checklist.md`。
 8. 用户确认后 install。

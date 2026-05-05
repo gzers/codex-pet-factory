@@ -76,12 +76,14 @@ PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory validate 
 Review:
 
 - `build/<pet-id>/contact-sheet.png`
+- `build/<pet-id>/preview.html`
 - `build/<pet-id>/validate.json`
 - `build/<pet-id>/qa-notes.md`
+- `docs/03-interaction-checklist.md`
 
 ## 7. Install
 
-Install only after automatic validation and contact sheet review pass:
+Install only after automatic validation, preview page review, contact sheet review, and interaction checklist pass:
 
 ```bash
 PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory install ./my-pet
@@ -100,4 +102,4 @@ When the user reports a frame issue:
 
 - Prefer fixing the relevant action state.
 - Do not blindly patch the final atlas.
-- Re-run build, validation, and contact sheet review after every fix.
+- Re-run build, validation, preview page review, and contact sheet review after every fix.

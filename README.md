@@ -11,6 +11,7 @@ Codex Pet Factory is a reusable toolkit for creating Codex desktop pets from a u
 | [Documentation Index](docs/README.md) | [文档传送门](docs/README.zh-CN.md) |
 | [Agent Workflow](docs/01-agent-workflow.md) | [Agent 工作流](docs/01-agent-workflow.zh-CN.md) |
 | [Developer Guide](docs/02-developer-guide.md) | [开发者说明](docs/02-developer-guide.zh-CN.md) |
+| Generated Interaction Checklist | `docs/03-interaction-checklist.md` in scaffolded projects | `docs/03-interaction-checklist.zh-CN.md` in scaffolded projects |
 | [Photo Example](examples/from-photo.md) | [照片示例](examples/from-photo.zh-CN.md) |
 | [Skill](skills/codex-pet-factory/SKILL.md) | [Skill 中文说明](skills/codex-pet-factory/SKILL.zh-CN.md) |
 | [Production Reference](skills/codex-pet-factory/references/pet-production.md) | [制作参考](skills/codex-pet-factory/references/pet-production.zh-CN.md) |
@@ -69,6 +70,7 @@ codex-pet-factory install ./my-pet
 - Atlas: WebP RGBA, `1536 x 1872`.
 - Grid: 8 columns x 9 rows.
 - Manifest: `pet.json` with `id`, `displayName`, `description`, and `spritesheetPath`.
+- QA outputs: `contact-sheet.png`, `preview.html`, `validate.json`, and `qa-notes.md`.
 - Install path: `${HOME}/.codex/pets/<pet-id>/`.
 
 ## Default State Rows
@@ -95,5 +97,5 @@ Recommended flow for developer agents:
 4. Write `docs/01-action-design.md`.
 5. Generate `assets/generated/<state>/normalized/frame-XX.png`.
 6. Run `build` and `validate`.
-7. Review `contact-sheet.png`.
+7. Review `contact-sheet.png`, `preview.html`, and `docs/03-interaction-checklist.md`.
 8. Install after user approval.

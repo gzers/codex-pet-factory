@@ -25,5 +25,9 @@ env/
 .idea/
 .vscode/
 
+# Local Codex/agent files
+.agents/
+.codex/
+
 # Codex Pet generated outputs inside scaffolded projects
 **/build/

@@ -76,12 +76,14 @@ PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory validate 
 查看：
 
 - `build/<pet-id>/contact-sheet.png`
+- `build/<pet-id>/preview.html`
 - `build/<pet-id>/validate.json`
 - `build/<pet-id>/qa-notes.md`
+- `docs/03-interaction-checklist.zh-CN.md`
 
 ## 7. 安装
 
-只有在自动校验和 contact sheet 人工验收都通过后安装：
+只有在自动校验、预览页面、contact sheet 和交互清单都通过后安装：
 
 ```bash
 PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory install ./my-pet
@@ -100,4 +102,4 @@ PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory install .
 
 - 优先回到对应动作组修复。
 - 不要直接在最终 atlas 上盲修。
-- 修复后重跑 build、validate、contact sheet。
+- 修复后重跑 build、validate、预览页面和 contact sheet。

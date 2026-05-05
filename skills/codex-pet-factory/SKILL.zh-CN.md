@@ -12,7 +12,7 @@ English documentation: [SKILL.md](SKILL.md)
 4. 为每个动作状态生成或绘制透明 PNG 帧。
 5. 把每帧规范化为 `192 x 208`。
 6. 用 `codex-pet-factory build` 构建，并用 `validate` 校验。
-7. 检查 `build/<pet-id>/contact-sheet.png`。
+7. 检查 `build/<pet-id>/contact-sheet.png`、`build/<pet-id>/preview.html` 和 `docs/03-interaction-checklist.zh-CN.md`。
 8. 只有 QA 通过后才执行 `codex-pet-factory install`。
 
 ## 命令
@@ -37,7 +37,8 @@ PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory scaffold 
 - 先制作 `running-right`，再镜像得到 `running-left`。
 - 所有 normalized frames 必须是 `192 x 208` 透明 PNG。
 - 如果 `validate.json` 有 errors，不要安装。
-- 优先通过 contact sheet 审查整体动作，再做逐帧像素修复。
+- 优先通过 preview page 和 contact sheet 审查整体动作，再做逐帧像素修复。
+- 安装前完成生成的交互清单。
 
 ## 参考
 
