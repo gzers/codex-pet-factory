@@ -11,7 +11,7 @@ English documentation: [README.md](README.md)
 | [Documentation Index](docs/README.md) | [文档传送门](docs/README.zh-CN.md) |
 | [Agent Workflow](docs/01-agent-workflow.md) | [Agent 工作流](docs/01-agent-workflow.zh-CN.md) |
 | [Developer Guide](docs/02-developer-guide.md) | [开发者说明](docs/02-developer-guide.zh-CN.md) |
-| 生成的交互清单 | scaffold 项目中的 `docs/03-interaction-checklist.md` | scaffold 项目中的 `docs/03-interaction-checklist.zh-CN.md` |
+| Generated Interaction Checklist (`docs/03-interaction-checklist.md` in scaffold projects) | 生成的交互清单（scaffold 项目中的 `docs/03-interaction-checklist.zh-CN.md`） |
 | [Photo Example](examples/from-photo.md) | [照片示例](examples/from-photo.zh-CN.md) |
 | [Skill](skills/codex-pet-factory/SKILL.md) | [Skill 中文说明](skills/codex-pet-factory/SKILL.zh-CN.md) |
 | [Production Reference](skills/codex-pet-factory/references/pet-production.md) | [制作参考](skills/codex-pet-factory/references/pet-production.zh-CN.md) |
@@ -69,13 +69,14 @@ codex-pet-factory install ./my-pet
 - 单帧：`192 x 208` 透明 PNG。
 - Atlas：`1536 x 1872` WebP RGBA。
 - 网格：8 列 x 9 行。
+- 规则：每一行都有自己的使用帧数。atlas 固定为 8 列 x 9 行，每行最后一个已使用帧之后的格子都必须保持透明。
 - Manifest：`pet.json`，包含 `id`、`displayName`、`description`、`spritesheetPath`。
 - QA 产物：`contact-sheet.png`、`preview.html`、`validate.json`、`qa-notes.md`。
 - 安装目录：`${HOME}/.codex/pets/<pet-id>/`。
 
 ## 标准动作行
 
-| 行号 | 状态 | 帧数 | 用途 |
+| 行号 | 状态 | 使用帧数 | 用途 |
 | --- | --- | ---: | --- |
 | 0 | `idle` | 6 | 待机、呼吸、眨眼、小动作 |
 | 1 | `running-right` | 8 | 向右奔跑 |
@@ -87,6 +88,8 @@ codex-pet-factory install ./my-pet
 | 7 | `running` | 6 | 原地循环动作 |
 | 8 | `review` | 6 | 彩蛋或特殊反应 |
 
+每行最后一个已使用帧之后的格子都要保持透明。
+
 ## Agent 用法
 
 给其他开发者或 agent 的推荐调用方式：
@@ -94,7 +97,7 @@ codex-pet-factory install ./my-pet
 1. 使用 `$codex-pet-factory` skill。
 2. 先 scaffold 项目。
 3. 把用户图片或文字描述放入 `assets/reference/`。
-4. 写 `docs/01-action-design.md`，明确每个状态的动作。
+4. 写 `docs/01-action-design.md`，把生产参考里的每行帧数预算写进去。
 5. 生成 `assets/generated/<state>/normalized/frame-XX.png`。
 6. 运行 build 和 validate。
 7. 查看 contact sheet、`preview.html` 和 `docs/03-interaction-checklist.md`。

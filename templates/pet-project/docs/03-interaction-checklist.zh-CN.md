@@ -10,6 +10,7 @@ English documentation: [03-interaction-checklist.md](03-interaction-checklist.md
 - [ ] `build/<pet-id>/preview.html` 可以本地打开，并能播放每个状态。
 - [ ] `build/<pet-id>/contact-sheet.png` 中所有有效帧都在正确行。
 - [ ] `build/<pet-id>/pet.json` 的 id、显示名和 spritesheet 路径正确。
+- [ ] 每行的使用帧数都符合制作规格（`jumping` 是 5 帧，其它行使用各自列出的帧数）。
 
 ## 预览控件
 

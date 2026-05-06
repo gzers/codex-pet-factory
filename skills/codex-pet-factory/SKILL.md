@@ -41,6 +41,7 @@ PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory scaffold 
 
 - Build the first usable screen as the pet itself: assets, atlas, manifest, and QA outputs.
 - Treat `docs/01-action-design.md` as the action truth source.
+- Follow the official atlas contract from the production reference: 8 x 9 grid, per-row frame budgets, and transparent unused cells.
 - Use `running-right` as the authored run; derive `running-left` by mirroring.
 - Keep all normalized frames `192 x 208` transparent PNG.
 - Do not install if `validate.json` contains errors.

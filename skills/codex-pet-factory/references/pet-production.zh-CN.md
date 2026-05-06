@@ -15,7 +15,7 @@ English documentation: [pet-production.md](pet-production.md)
 
 ## 默认 Atlas
 
-| 行号 | 状态 | 帧数 | 用途 |
+| 行号 | 状态 | 使用帧数 | 用途 |
 | --- | --- | ---: | --- |
 | 0 | `idle` | 6 | 休息、啃咬、眨眼、呼吸 |
 | 1 | `running-right` | 8 | 向右移动 |
@@ -27,7 +27,7 @@ English documentation: [pet-production.md](pet-production.md)
 | 7 | `running` | 6 | 原地循环，例如转圈 |
 | 8 | `review` | 6 | 有趣彩蛋或特殊反应 |
 
-单元格尺寸是 `192 x 208`。网格宽度是 8 列。未使用的格子保持透明。
+单元格尺寸是 `192 x 208`。网格宽度是 8 列。这不是全局 5 帧上限：只有 `jumping` 是 5 帧。每行最后一个已使用帧之后的格子都要保持透明。
 
 ## 图像生成建议
 

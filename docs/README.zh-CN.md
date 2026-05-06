@@ -21,4 +21,4 @@ English documentation: [README.md](README.md)
 3. 修改 CLI、测试或包结构时，看 [开发者说明](02-developer-guide.zh-CN.md)。
 4. 安装前使用每个宠物项目生成的 `docs/03-interaction-checklist.zh-CN.md`。
 5. 给其他 Codex agent 复用时，看 [Skill](../skills/codex-pet-factory/SKILL.md)。
-6. 需要确认 atlas 布局、状态设计、QA 标准时，看 [制作参考](../skills/codex-pet-factory/references/pet-production.zh-CN.md)。
+6. 需要确认 atlas 布局、每行帧数预算、透明规则、状态设计、QA 标准时，看 [制作参考](../skills/codex-pet-factory/references/pet-production.zh-CN.md)。

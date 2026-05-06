@@ -21,4 +21,4 @@
 3. Use [Developer Guide](02-developer-guide.md) when changing CLI behavior, tests, or package structure.
 4. Use the generated `docs/03-interaction-checklist.md` in each pet project before install.
 5. Use the [Skill](../skills/codex-pet-factory/SKILL.md) when another Codex agent needs reusable instructions.
-6. Use the [Production Reference](../skills/codex-pet-factory/references/pet-production.md) for atlas layout, state design, and QA criteria.
+6. Use the [Production Reference](../skills/codex-pet-factory/references/pet-production.md) for atlas layout, row-specific frame budgets, transparency rules, state design, and QA criteria.

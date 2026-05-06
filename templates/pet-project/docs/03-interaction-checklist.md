@@ -10,6 +10,7 @@ Use this checklist before installing the pet. Mark items only after checking `bu
 - [ ] `build/<pet-id>/preview.html` opens locally and animates every state.
 - [ ] `build/<pet-id>/contact-sheet.png` shows all used frames in the correct rows.
 - [ ] `build/<pet-id>/pet.json` has the expected id, display name, and spritesheet path.
+- [ ] Each row's used-frame count matches the production spec (`jumping` is 5 frames; the other rows use their listed counts).
 
 ## Preview Controls
 

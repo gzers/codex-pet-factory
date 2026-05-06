@@ -33,6 +33,7 @@ PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory scaffold 
 
 - 每个状态的中文备注。
 - 每个状态要表达的行为。
+- 生产参考里给出的每个状态帧数预算。
 - 是否需要道具。
 - 哪些状态需要镜像派生。
 - 人工验收标准。
@@ -65,6 +66,8 @@ assets/generated/<state>/normalized/frame-00.png
 - 背景透明。
 - 同一动作组中角色比例稳定。
 - `running-left` 从 `running-right` 镜像得到。
+- 遵循生产参考里的每行帧数预算。`jumping` 是 5 帧，但 atlas 不是全局 5 帧上限。
+- 每行最后一个已使用帧之后的格子必须保持透明。
 
 ## 6. 构建和校验
 

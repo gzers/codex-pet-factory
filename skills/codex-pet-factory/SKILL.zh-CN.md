@@ -34,6 +34,7 @@ PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory scaffold 
 
 - 第一优先产出可用宠物：素材、atlas、manifest 和 QA 输出。
 - 把 `docs/01-action-design.md` 当作动作设计的事实来源。
+- 遵循制作参考里的官方 atlas 约束：8 x 9 网格、每行帧数预算、以及未使用格子的透明保留。
 - 先制作 `running-right`，再镜像得到 `running-left`。
 - 所有 normalized frames 必须是 `192 x 208` 透明 PNG。
 - 如果 `validate.json` 有 errors，不要安装。

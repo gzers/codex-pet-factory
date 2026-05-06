@@ -11,7 +11,7 @@ Codex Pet Factory is a reusable toolkit for creating Codex desktop pets from a u
 | [Documentation Index](docs/README.md) | [文档传送门](docs/README.zh-CN.md) |
 | [Agent Workflow](docs/01-agent-workflow.md) | [Agent 工作流](docs/01-agent-workflow.zh-CN.md) |
 | [Developer Guide](docs/02-developer-guide.md) | [开发者说明](docs/02-developer-guide.zh-CN.md) |
-| Generated Interaction Checklist | `docs/03-interaction-checklist.md` in scaffolded projects | `docs/03-interaction-checklist.zh-CN.md` in scaffolded projects |
+| Generated Interaction Checklist (`docs/03-interaction-checklist.md` in scaffolded projects) | 生成的交互清单 (`docs/03-interaction-checklist.zh-CN.md` in scaffolded projects) |
 | [Photo Example](examples/from-photo.md) | [照片示例](examples/from-photo.zh-CN.md) |
 | [Skill](skills/codex-pet-factory/SKILL.md) | [Skill 中文说明](skills/codex-pet-factory/SKILL.zh-CN.md) |
 | [Production Reference](skills/codex-pet-factory/references/pet-production.md) | [制作参考](skills/codex-pet-factory/references/pet-production.zh-CN.md) |
@@ -69,13 +69,14 @@ codex-pet-factory install ./my-pet
 - Frame: transparent PNG, `192 x 208`.
 - Atlas: WebP RGBA, `1536 x 1872`.
 - Grid: 8 columns x 9 rows.
+- Contract: each row uses its own frame budget. The atlas is fixed at 8 columns x 9 rows, and any cells after the last used frame in a row stay transparent.
 - Manifest: `pet.json` with `id`, `displayName`, `description`, and `spritesheetPath`.
 - QA outputs: `contact-sheet.png`, `preview.html`, `validate.json`, and `qa-notes.md`.
 - Install path: `${HOME}/.codex/pets/<pet-id>/`.
 
 ## Default State Rows
 
-| Row | State | Frames | Purpose |
+| Row | State | Used Frames | Purpose |
 | --- | --- | ---: | --- |
 | 0 | `idle` | 6 | Idle breathing, blinking, tiny character actions |
 | 1 | `running-right` | 8 | Rightward run |
@@ -87,6 +88,8 @@ codex-pet-factory install ./my-pet
 | 7 | `running` | 6 | In-place loop |
 | 8 | `review` | 6 | Easter egg or special reaction |
 
+Unused cells after each row's final used frame stay transparent.
+
 ## Agent Usage
 
 Recommended flow for developer agents:
@@ -94,7 +97,7 @@ Recommended flow for developer agents:
 1. Use the `$codex-pet-factory` skill.
 2. Scaffold a pet project.
 3. Put user images or text briefs into `assets/reference/`.
-4. Write `docs/01-action-design.md`.
+4. Write `docs/01-action-design.md` with the per-row frame budget from the production reference.
 5. Generate `assets/generated/<state>/normalized/frame-XX.png`.
 6. Run `build` and `validate`.
 7. Review `contact-sheet.png`, `preview.html`, and `docs/03-interaction-checklist.md`.

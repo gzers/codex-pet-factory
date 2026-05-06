@@ -12,6 +12,7 @@ Codex Pet Factory owns the stable engineering layer:
 - Generate `pet.json`.
 - Output `contact-sheet.png`, `preview.html`, `validate.json`, and QA notes.
 - Generate an interaction checklist in scaffolded projects.
+- Enforce the official atlas contract: 8 x 9 grid, per-row frame budgets, and transparent unused cells.
 - Install the pet into the Codex Pets directory.
 
 It does not bind the workflow to a specific image generation provider. Agents may use any available image generation or image editing capability as long as the final output is normalized frames.

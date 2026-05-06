@@ -2,7 +2,9 @@
 
 中文文档：[01-action-design.zh-CN.md](01-action-design.zh-CN.md)
 
-| Row | State | Frames | Note | Design |
+The frame budgets below follow the official production spec. Populate only the used frames in each row; any remaining cells stay transparent.
+
+| Row | State | Used Frames | Note | Design |
 | --- | --- | ---: | --- | --- |
 | 0 | `idle` | 6 | Idle | TBD |
 | 1 | `running-right` | 8 | Run right | TBD |

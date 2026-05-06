@@ -12,6 +12,7 @@ Codex Pet Factory 只负责稳定工程部分：
 - 生成 `pet.json`。
 - 输出 contact sheet、`preview.html`、`validate.json` 和 QA notes。
 - 在 scaffold 项目中生成交互清单。
+- 强制执行官方 atlas 约束：8 x 9 网格、每行帧数预算、以及未使用格子的透明保留。
 - 安装到 Codex Pets 目录。
 
 它不强制绑定某个图像生成服务。agent 可以使用任何可用的图片生成或编辑能力，只要最终落到 normalized frames。

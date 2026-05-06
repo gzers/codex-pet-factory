@@ -33,6 +33,7 @@ Update `docs/01-action-design.md` before generating images. At minimum, define:
 
 - The note for each state.
 - The behavior each state should express.
+- The frame budget for each state from the production reference.
 - Whether props are needed.
 - Which states should be mirrored.
 - Manual acceptance criteria.
@@ -65,6 +66,8 @@ Requirements:
 - Background must be transparent.
 - Character proportions should stay stable inside each state.
 - `running-left` should be mirrored from `running-right`.
+- Follow the production reference's per-row frame budget. `jumping` is 5 frames, but the atlas is not globally capped at 5 frames.
+- Keep any cells after the last used frame in a row transparent.
 
 ## 6. Build and Validate
 

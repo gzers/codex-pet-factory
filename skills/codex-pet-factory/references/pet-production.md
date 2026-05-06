@@ -15,7 +15,7 @@ Always archive inputs in `assets/reference/` and record how they are used.
 
 ## Default Atlas
 
-| Row | State | Frames | Purpose |
+| Row | State | Used Frames | Purpose |
 | --- | --- | ---: | --- |
 | 0 | `idle` | 6 | Resting, chewing, blinking, breathing |
 | 1 | `running-right` | 8 | Rightward locomotion |
@@ -27,7 +27,7 @@ Always archive inputs in `assets/reference/` and record how they are used.
 | 7 | `running` | 6 | In-place loop such as spinning |
 | 8 | `review` | 6 | Fun easter egg or special reaction |
 
-Cell size is `192 x 208`. Grid width is 8 columns. Keep unused cells transparent.
+Cell size is `192 x 208`. Grid width is 8 columns. This is not a global 5-frame cap: only `jumping` uses 5 frames. Keep unused cells after each row's final used frame transparent.
 
 ## Image Generation Guidance
 
