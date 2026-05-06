@@ -23,3 +23,4 @@ codex-pet-factory install .
 ```
 
 安装前请检查 `build/<pet-id>/preview.html` 和 `docs/03-interaction-checklist.md`。
+如果动画帧或帧数发生变化，先重新 `build` 再 `install`，这样 Codex Pets 目录里的输出才会更新成最新版本。

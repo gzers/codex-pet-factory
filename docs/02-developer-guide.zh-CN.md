@@ -31,6 +31,7 @@ src/codex_pet_factory/cli.py
 - `build`：打包 atlas、runtime manifest、contact sheet、预览页面、校验输出和 QA notes。
 - `validate`：重新生成校验结果，遇到错误退出非零。
 - `install`：复制到 `${HOME}/.codex/pets/<pet-id>/`。
+  重新执行 install 会用最新的 `pet.json` 和 `spritesheet.webp` 刷新 Codex Pets 目录。
 
 ## 项目 Manifest
 
@@ -49,6 +50,7 @@ src/codex_pet_factory/cli.py
 ```
 
 `build/<pet-id>/pet.json` 才是 Codex Pets 使用的 runtime manifest。
+当动画帧或每行帧数预算发生变化时，要先重新 build，再 install，确保 atlas 预览、校验输出和 runtime 文件保持一致。
 
 ## QA 产物
 

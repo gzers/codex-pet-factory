@@ -105,4 +105,5 @@ When the user reports a frame issue:
 
 - Prefer fixing the relevant action state.
 - Do not blindly patch the final atlas.
-- Re-run build, validation, preview page review, and contact sheet review after every fix.
+- After finishing or changing animation frames or frame counts, re-run build, validation, preview page review, and contact sheet review.
+- Install again after the rebuilt outputs are approved so `${HOME}/.codex/pets/<pet-id>/` is refreshed with the new `pet.json` and `spritesheet.webp`.

@@ -23,3 +23,4 @@ codex-pet-factory install .
 ```
 
 Review `build/<pet-id>/preview.html` and `docs/03-interaction-checklist.md` before installing.
+If you change animation frames or frame counts, run `build` again before `install` so the Codex Pets directory is updated with the latest outputs.

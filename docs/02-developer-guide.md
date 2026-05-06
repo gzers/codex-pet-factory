@@ -31,6 +31,7 @@ Commands:
 - `build`: package the atlas, runtime manifest, contact sheet, preview page, validation output, and QA notes.
 - `validate`: rebuild validation output and exit non-zero when errors exist.
 - `install`: copy outputs into `${HOME}/.codex/pets/<pet-id>/`.
+  Re-running install refreshes the Codex Pets directory with the latest `pet.json` and `spritesheet.webp`.
 
 ## Project Manifest
 
@@ -49,6 +50,7 @@ Example:
 ```
 
 `build/<pet-id>/pet.json` is the runtime manifest used by Codex Pets.
+When animation frames or per-row frame counts change, rebuild before install so the atlas preview, validation output, and runtime files stay in sync.
 
 ## QA Outputs
 

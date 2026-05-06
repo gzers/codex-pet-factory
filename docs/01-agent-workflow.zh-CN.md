@@ -105,4 +105,5 @@ PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory install .
 
 - 优先回到对应动作组修复。
 - 不要直接在最终 atlas 上盲修。
-- 修复后重跑 build、validate、预览页面和 contact sheet。
+- 动画绘制完成，或者帧数预算有变化后，要重跑 build、validate、预览页面和 contact sheet。
+- 重新生成的输出确认无误后再 install，这样 `${HOME}/.codex/pets/<pet-id>/` 里的 `pet.json` 和 `spritesheet.webp` 才会更新。
