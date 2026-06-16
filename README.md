@@ -1,104 +1,73 @@
 # Codex Pet Factory
 
-Codex Pet Factory is a reusable toolkit for creating Codex desktop pets from a user image, a character description, or existing sprite assets. It turns one-off pet production into a repeatable project workflow with a scaffold, sprite atlas builder, validator, installer, and an agent-facing skill.
+Codex Pet Factory is the project layer for Codex desktop pets: a small CLI, a thin agent skill, and a project template that keep pet work reproducible, previewable, and private.
+
+It is not meant to replace the official pet-generation skill. The upstream skill can handle generation; this repo focuses on project structure, preview, validation, packaging, and install.
 
 中文文档：[README.zh-CN.md](README.zh-CN.md)
 
-## Documentation Portal
+## What stays here
 
-| English | 中文 |
-| --- | --- |
-| [Documentation Index](docs/README.md) | [文档传送门](docs/README.zh-CN.md) |
-| [Agent Workflow](docs/01-agent-workflow.md) | [Agent 工作流](docs/01-agent-workflow.zh-CN.md) |
-| [Developer Guide](docs/02-developer-guide.md) | [开发者说明](docs/02-developer-guide.zh-CN.md) |
-| Generated Interaction Checklist (`docs/03-interaction-checklist.md` in scaffolded projects) | 生成的交互清单 (`docs/03-interaction-checklist.zh-CN.md` in scaffolded projects) |
-| [Photo Example](examples/from-photo.md) | [照片示例](examples/from-photo.zh-CN.md) |
-| [Skill](skills/codex-pet-factory/SKILL.md) | [Skill 中文说明](skills/codex-pet-factory/SKILL.zh-CN.md) |
-| [Production Reference](skills/codex-pet-factory/references/pet-production.md) | [制作参考](skills/codex-pet-factory/references/pet-production.zh-CN.md) |
+- project scaffolding
+- build / validate / install
+- preview and QA outputs
+- a thin project skill that bridges official generation output into this repo's layout
+- a template for per-pet projects
 
-## Use Cases
-
-- A user provides a pet, person, mascot, or object image and wants a Codex Pet.
-- A user provides only a text description and wants an animated desktop pet.
-- Existing sprite frames need to be packaged as `spritesheet.webp` and `pet.json`.
-- A one-off pet build should become a repeatable engineering workflow.
-
-## Project Layout
+## Target layout
 
 ```text
-codex-pet-factory/
-├── src/codex_pet_factory/          # CLI source
-├── skills/codex-pet-factory/       # Skill for Codex/agents
-├── docs/                           # English and Chinese documentation
-├── examples/                       # Example briefs and workflows
-└── pyproject.toml
+codex-pet-factory/              # this repo
+├── src/                        # CLI, preview, validation, install
+├── skills/                     # thin project skill
+├── templates/                  # scaffold template
+├── tests/
+└── README.md
 ```
 
-## Installation
+```text
+pets/<pet-id>/                  # generated pet project, created by scaffold
+├── build/                      # all generated outputs, ignored by git
+│   ├── input/                  # private references and working inputs
+│   ├── work/                   # intermediate frames and normalized frames
+│   ├── qa/                     # preview, contact sheet, validation
+│   └── final/                  # spritesheet.webp, pet.json
+├── pet-project.json
+└── .gitignore
+```
 
-For local development, create a virtual environment and install the package in editable mode:
+## What is committed
+
+- `src/`
+- `skills/`
+- `templates/`
+- `tests/`
+- `README.md`
+
+## What is local only
+
+- `pets/**/build/`
+- private reference input
+- install output
+
+## Current commands
 
 ```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -e .
-.venv/bin/python -m unittest discover -s tests
+PYTHONPATH=src python3 -m codex_pet_factory scaffold ./pets/juice --name "Juice" --id juice
+PYTHONPATH=src python3 -m codex_pet_factory build ./pets/juice
+PYTHONPATH=src python3 -m codex_pet_factory validate ./pets/juice
+PYTHONPATH=src python3 -m codex_pet_factory install ./pets/juice
 ```
 
-## Core Commands
+## Refactor outline
 
-Run locally with `PYTHONPATH`:
+1. Shrink the root skill to a thin project bridge.
+2. Keep all pet output under `pets/<pet-id>/build/`.
+3. Move private references into `build/input/`.
+4. Keep preview and QA as first-class outputs.
+5. Remove redundant repository-level docs once the new layout is stable.
 
-```bash
-PYTHONPATH=src python3 -m codex_pet_factory scaffold ./my-pet --name "Juice" --id juice
-PYTHONPATH=src python3 -m codex_pet_factory build ./my-pet
-PYTHONPATH=src python3 -m codex_pet_factory validate ./my-pet
-PYTHONPATH=src python3 -m codex_pet_factory install ./my-pet
-```
+## Notes
 
-After installing the package:
-
-```bash
-codex-pet-factory scaffold ./my-pet --name "Juice" --id juice
-codex-pet-factory build ./my-pet
-codex-pet-factory validate ./my-pet
-codex-pet-factory install ./my-pet
-```
-
-## Output Specification
-
-- Frame: transparent PNG, `192 x 208`.
-- Atlas: WebP RGBA, `1536 x 1872`.
-- Grid: 8 columns x 9 rows.
-- Contract: each row uses its own frame budget. The atlas is fixed at 8 columns x 9 rows, and any cells after the last used frame in a row stay transparent.
-- Manifest: `pet.json` with `id`, `displayName`, `description`, and `spritesheetPath`.
-- QA outputs: `contact-sheet.png`, `preview.html`, `validate.json`, and `qa-notes.md`.
-- Install path: `${HOME}/.codex/pets/<pet-id>/`.
-
-## Default State Rows
-
-| Row | State | Used Frames | Purpose |
-| --- | --- | ---: | --- |
-| 0 | `idle` | 6 | Idle breathing, blinking, tiny character actions |
-| 1 | `running-right` | 8 | Rightward run |
-| 2 | `running-left` | 8 | Leftward run, preferably mirrored from rightward run |
-| 3 | `waving` | 4 | Greeting |
-| 4 | `jumping` | 5 | Jump, flip, hop, or excited action |
-| 5 | `failed` | 8 | Failure, crying, confused, or error reaction |
-| 6 | `waiting` | 6 | Waiting, lying down, rolling, sleepy behavior |
-| 7 | `running` | 6 | In-place loop |
-| 8 | `review` | 6 | Easter egg or special reaction |
-
-Unused cells after each row's final used frame stay transparent.
-
-## Agent Usage
-
-Recommended flow for developer agents:
-
-1. Use the `$codex-pet-factory` skill.
-2. Scaffold a pet project.
-3. Put user images or text briefs into `assets/reference/`.
-4. Write `docs/01-action-design.md` with the per-row frame budget from the production reference.
-5. Generate `assets/generated/<state>/normalized/frame-XX.png`.
-6. Run `build` and `validate`.
-7. Review `contact-sheet.png`, `preview.html`, and `docs/03-interaction-checklist.md`.
-8. Install after user approval.
+- The official generation skill remains the source for pet art generation.
+- This repo owns the local project structure and the installable outputs.

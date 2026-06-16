@@ -54,14 +54,56 @@ def load_manifest(project: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def build_root(project: Path) -> Path:
+    return project / "build"
+
+
+def input_root(project: Path) -> Path:
+    return build_root(project) / "input"
+
+
+def work_root(project: Path) -> Path:
+    return build_root(project) / "work"
+
+
+def qa_root(project: Path) -> Path:
+    return build_root(project) / "qa"
+
+
+def final_root(project: Path) -> Path:
+    return build_root(project) / "final"
+
+
+def normalized_state_root(project: Path, state: str) -> Path:
+    return work_root(project) / state / "normalized"
+
+
+def legacy_state_root(project: Path, state: str) -> Path:
+    return project / "assets" / "generated" / state / "normalized"
+
+
 def state_source(project: Path, state: str) -> Path:
-    return project / "assets/generated" / state / "normalized"
+    for candidate in (normalized_state_root(project, state), legacy_state_root(project, state)):
+        if candidate.exists():
+            return candidate
+    return normalized_state_root(project, state)
+
+
+def ensure_build_layout(project: Path) -> None:
+    (input_root(project) / "original").mkdir(parents=True, exist_ok=True)
+    (input_root(project) / "visual").mkdir(parents=True, exist_ok=True)
+    for spec in DEFAULT_STATES:
+        (work_root(project) / spec.state / "frames").mkdir(parents=True, exist_ok=True)
+        (work_root(project) / spec.state / "normalized").mkdir(parents=True, exist_ok=True)
+    qa_root(project).mkdir(parents=True, exist_ok=True)
+    final_root(project).mkdir(parents=True, exist_ok=True)
 
 
 def build_atlas(project: Path) -> dict[str, object]:
     image, _image_draw, _image_font = require_pillow()
     manifest = load_manifest(project)
     pet_id = str(manifest["id"])
+    ensure_build_layout(project)
     rows = len(DEFAULT_STATES)
     atlas = image.new("RGBA", (CELL_WIDTH * COLUMNS, CELL_HEIGHT * rows), (0, 0, 0, 0))
     validation: dict[str, object] = {
@@ -112,14 +154,12 @@ def build_atlas(project: Path) -> dict[str, object]:
                 validation["errors"].append(f"Unused cell is not transparent: {spec.state} column {index}")
         validation["states"].append(record)
 
-    out_dir = project / "build" / pet_id
-    out_dir.mkdir(parents=True, exist_ok=True)
-    atlas.save(out_dir / "spritesheet.webp", "WEBP", lossless=True, quality=100, method=6)
-    (out_dir / "validate.json").write_text(json.dumps(validation, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    write_pet_json(out_dir, manifest)
-    write_contact_sheet(out_dir, validation)
-    write_qa_notes(out_dir, validation)
-    write_preview_html(out_dir, manifest, validation)
+    atlas.save(final_root(project) / "spritesheet.webp", "WEBP", lossless=True, quality=100, method=6)
+    (qa_root(project) / "validate.json").write_text(json.dumps(validation, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    write_pet_json(final_root(project), manifest)
+    write_contact_sheet(qa_root(project), final_root(project), validation)
+    write_qa_notes(qa_root(project), validation)
+    write_preview_html(qa_root(project), manifest, validation)
     return validation
 
 
@@ -133,7 +173,7 @@ def write_pet_json(out_dir: Path, manifest: dict[str, object]) -> None:
     (out_dir / "pet.json").write_text(json.dumps(pet_json, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def write_contact_sheet(out_dir: Path, validation: dict[str, object]) -> None:
+def write_contact_sheet(out_dir: Path, final_dir: Path, validation: dict[str, object]) -> None:
     image, image_draw, _image_font = require_pillow()
     label_width = 180
     footer_height = 34
@@ -145,7 +185,7 @@ def write_contact_sheet(out_dir: Path, validation: dict[str, object]) -> None:
     )
     draw = image_draw.Draw(sheet)
     font = load_font(12)
-    atlas = image.open(out_dir / "spritesheet.webp").convert("RGBA")
+    atlas = image.open(final_dir / "spritesheet.webp").convert("RGBA")
 
     for spec in DEFAULT_STATES:
         y = spec.row * CELL_HEIGHT
@@ -174,11 +214,11 @@ def write_qa_notes(out_dir: Path, validation: dict[str, object]) -> None:
             "",
             "## Outputs",
             "",
-            "- `spritesheet.webp`",
-            "- `pet.json`",
-            "- `contact-sheet.png`",
-            "- `preview.html`",
-            "- `validate.json`",
+            "- `final/spritesheet.webp`",
+            "- `final/pet.json`",
+            "- `qa/contact-sheet.png`",
+            "- `qa/preview.html`",
+            "- `qa/validate.json`",
         ]
     )
     (out_dir / "qa-notes.md").write_text(text + "\n", encoding="utf-8")
@@ -211,9 +251,14 @@ def write_preview_html(out_dir: Path, manifest: dict[str, object], validation: d
         "atlas_size": validation["atlas_size"],
         "states": states,
         "errors": validation["errors"],
+        "spritesheetPath": "../final/spritesheet.webp",
     }
     title = html.escape(f"{manifest['displayName']} Sprite Preview", quote=True)
-    text = PREVIEW_HTML.replace("__PREVIEW_TITLE__", title).replace("__PREVIEW_DATA__", script_json(payload))
+    text = (
+        PREVIEW_HTML.replace("__PREVIEW_TITLE__", title)
+        .replace("__PREVIEW_DATA__", script_json(payload))
+        .replace("__SPRITESHEET_PATH__", "../final/spritesheet.webp")
+    )
     (out_dir / "preview.html").write_text(text + "\n", encoding="utf-8")
 
 
@@ -462,7 +507,7 @@ PREVIEW_HTML = """<!doctype html>
       width: var(--cell-w);
       height: var(--cell-h);
       transform-origin: center;
-      background-image: url("spritesheet.webp");
+      background-image: url("__SPRITESHEET_PATH__");
       background-repeat: no-repeat;
       background-size: var(--atlas-w) var(--atlas-h);
     }
@@ -539,7 +584,7 @@ PREVIEW_HTML = """<!doctype html>
     .thumb-frame {
       width: 100%;
       aspect-ratio: 192 / 208;
-      background-image: url("spritesheet.webp");
+      background-image: url("__SPRITESHEET_PATH__");
       background-repeat: no-repeat;
       background-size: var(--thumb-bg-size);
     }
@@ -724,10 +769,10 @@ PREVIEW_HTML = """<!doctype html>
         </section>
       </div>
 
-      <footer class="footer">
-        <span>资源：spritesheet.webp / validate.json / contact-sheet.png</span>
-        <span id="gridReadout"></span>
-      </footer>
+    <footer class="footer">
+      <span>资源：final/spritesheet.webp / qa/validate.json / qa/contact-sheet.png</span>
+      <span id="gridReadout"></span>
+    </footer>
     </main>
   </div>
 
@@ -737,6 +782,7 @@ PREVIEW_HTML = """<!doctype html>
     const [cellWidth, cellHeight] = data.cell;
     const [columns, rows] = data.grid;
     const [atlasWidth, atlasHeight] = data.atlas_size;
+    const spritesheetPath = data.spritesheetPath;
 
     document.documentElement.style.setProperty("--cell-w", `${cellWidth}px`);
     document.documentElement.style.setProperty("--cell-h", `${cellHeight}px`);
@@ -765,6 +811,11 @@ PREVIEW_HTML = """<!doctype html>
     const stateTitle = document.getElementById("stateTitle");
     const stateNote = document.getElementById("stateNote");
     const frameTitle = document.getElementById("frameTitle");
+
+    spriteFrame.style.backgroundImage = `url(${spritesheetPath})`;
+    for (const thumbFrame of document.querySelectorAll(".thumb-frame")) {
+      thumbFrame.style.backgroundImage = `url(${spritesheetPath})`;
+    }
 
     document.getElementById("petName").textContent = data.pet.displayName;
     document.getElementById("petDescription").textContent = data.pet.description || data.pet.id;
@@ -964,17 +1015,14 @@ PREVIEW_HTML = """<!doctype html>
 
 
 def scaffold_project(args: argparse.Namespace) -> None:
-    target = Path(args.path).resolve()
     pet_id = args.id or pet_id_from_name(args.name)
+    target = Path(args.path).expanduser().resolve() if args.path else (Path.cwd() / "pets" / pet_id).resolve()
     if target.exists() and any(target.iterdir()) and not args.force:
         raise SystemExit(f"Target exists and is not empty: {target}")
     target.mkdir(parents=True, exist_ok=True)
 
-    for spec in DEFAULT_STATES:
-        (target / "assets/generated" / spec.state / "frames").mkdir(parents=True, exist_ok=True)
-        (target / "assets/generated" / spec.state / "normalized").mkdir(parents=True, exist_ok=True)
-    for directory in ("assets/reference/original", "assets/reference/visual", "docs", "build"):
-        (target / directory).mkdir(parents=True, exist_ok=True)
+    ensure_build_layout(target)
+    (target / "docs").mkdir(parents=True, exist_ok=True)
 
     manifest = {
         "id": pet_id,
@@ -1005,10 +1053,11 @@ def write_project_docs(target: Path, manifest: dict[str, object]) -> None:
         "| [Production Spec](docs/02-production-spec.md) | [制作规格](docs/02-production-spec.zh-CN.md) |\n"
         "| [Interaction Checklist](docs/03-interaction-checklist.md) | [交互清单](docs/03-interaction-checklist.zh-CN.md) |\n\n"
         "## Layout\n\n"
-        "- `assets/reference/`: user images, descriptions, and visual references.\n"
-        "- `assets/generated/<state>/frames/`: raw action frames.\n"
-        "- `assets/generated/<state>/normalized/`: transparent normalized `192 x 208` frames.\n"
-        f"- `build/{pet_id}/`: final `spritesheet.webp`, `pet.json`, validation, and previews.\n"
+        "- `build/input/`: private images, descriptions, and visual references.\n"
+        "- `build/work/<state>/frames/`: raw action frames.\n"
+        "- `build/work/<state>/normalized/`: transparent normalized `192 x 208` frames.\n"
+        "- `build/qa/`: validation, preview, contact sheet, and QA notes.\n"
+        "- `build/final/`: final `spritesheet.webp` and `pet.json`.\n"
         "- `docs/`: action design, production notes, and QA.\n\n"
         "## Build\n\n"
         "```bash\n"
@@ -1031,10 +1080,11 @@ def write_project_docs(target: Path, manifest: dict[str, object]) -> None:
         "| [Production Spec](docs/02-production-spec.md) | [制作规格](docs/02-production-spec.zh-CN.md) |\n"
         "| [Interaction Checklist](docs/03-interaction-checklist.md) | [交互清单](docs/03-interaction-checklist.zh-CN.md) |\n\n"
         "## 目录\n\n"
-        "- `assets/reference/`：用户图片、描述、风格参考。\n"
-        "- `assets/generated/<state>/frames/`：动作原始帧。\n"
-        "- `assets/generated/<state>/normalized/`：透明 `192 x 208` 规范帧。\n"
-        f"- `build/{pet_id}/`：最终 `spritesheet.webp`、`pet.json`、校验和预览。\n"
+        "- `build/input/`：私有图片、描述、视觉参考。\n"
+        "- `build/work/<state>/frames/`：动作原始帧。\n"
+        "- `build/work/<state>/normalized/`：透明 `192 x 208` 规范帧。\n"
+        "- `build/qa/`：校验、预览、contact sheet 和 QA notes。\n"
+        "- `build/final/`：最终 `spritesheet.webp` 和 `pet.json`。\n"
         "- `docs/`：动作设计、制作记录和 QA。\n\n"
         "## 构建\n\n"
         "```bash\n"
@@ -1143,13 +1193,13 @@ def write_project_docs(target: Path, manifest: dict[str, object]) -> None:
     (target / "docs/03-interaction-checklist.md").write_text(
         f"# Interaction Checklist: {name}\n\n"
         "中文文档：[03-interaction-checklist.zh-CN.md](03-interaction-checklist.zh-CN.md)\n\n"
-        "Use this checklist before installing the pet. Mark items only after checking `build/"
-        f"{pet_id}/preview.html`, `contact-sheet.png`, and the Codex Pet runtime when available.\n\n"
+        "Use this checklist before installing the pet. Mark items only after checking `build/qa/preview.html`, "
+        "`build/qa/contact-sheet.png`, and the Codex Pet runtime when available.\n\n"
         "## Build Outputs\n\n"
         "- [ ] `codex-pet-factory build .` exits with no validation errors.\n"
-        f"- [ ] `build/{pet_id}/preview.html` opens locally and animates every state.\n"
-        f"- [ ] `build/{pet_id}/contact-sheet.png` shows all used frames in the correct rows.\n"
-        f"- [ ] `build/{pet_id}/pet.json` has the expected id, display name, and spritesheet path.\n\n"
+        "- [ ] `build/qa/preview.html` opens locally and animates every state.\n"
+        "- [ ] `build/qa/contact-sheet.png` shows all used frames in the correct rows.\n"
+        "- [ ] `build/final/pet.json` has the expected id, display name, and spritesheet path.\n\n"
         "## Preview Controls\n\n"
         "- [ ] Play and pause work without jumping frames.\n"
         "- [ ] Previous and next frame buttons step through the selected state correctly.\n"
@@ -1181,13 +1231,12 @@ def write_project_docs(target: Path, manifest: dict[str, object]) -> None:
     (target / "docs/03-interaction-checklist.zh-CN.md").write_text(
         f"# 交互清单：{name}\n\n"
         "English documentation: [03-interaction-checklist.md](03-interaction-checklist.md)\n\n"
-        "安装宠物前使用这份清单。请结合 `build/"
-        f"{pet_id}/preview.html`、`contact-sheet.png`，以及可用时的 Codex Pet 运行时一起检查。\n\n"
+        "安装宠物前使用这份清单。请结合 `build/qa/preview.html`、`build/qa/contact-sheet.png`，以及可用时的 Codex Pet 运行时一起检查。\n\n"
         "## 构建产物\n\n"
         "- [ ] `codex-pet-factory build .` 无 validation errors。\n"
-        f"- [ ] `build/{pet_id}/preview.html` 可以本地打开，并能播放每个状态。\n"
-        f"- [ ] `build/{pet_id}/contact-sheet.png` 中所有有效帧都在正确行。\n"
-        f"- [ ] `build/{pet_id}/pet.json` 的 id、显示名和 spritesheet 路径正确。\n\n"
+        "- [ ] `build/qa/preview.html` 可以本地打开，并能播放每个状态。\n"
+        "- [ ] `build/qa/contact-sheet.png` 中所有有效帧都在正确行。\n"
+        "- [ ] `build/final/pet.json` 的 id、显示名和 spritesheet 路径正确。\n\n"
         "## 预览控件\n\n"
         "- [ ] 播放/暂停不会跳帧或卡住。\n"
         "- [ ] 上一帧/下一帧能正确步进当前状态。\n"
@@ -1221,9 +1270,14 @@ def write_project_docs(target: Path, manifest: dict[str, object]) -> None:
 def validate_project(args: argparse.Namespace) -> None:
     project = Path(args.path).resolve()
     manifest = load_manifest(project)
-    out_dir = project / "build" / str(manifest["id"])
     validation = build_atlas(project)
-    print(json.dumps({"out_dir": str(out_dir), "errors": validation["errors"]}, ensure_ascii=False, indent=2))
+    print(
+        json.dumps(
+            {"qa_dir": str(qa_root(project)), "final_dir": str(final_root(project)), "errors": validation["errors"]},
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
     if validation["errors"]:
         raise SystemExit(1)
 
@@ -1243,16 +1297,17 @@ def install_project(args: argparse.Namespace) -> None:
     project = Path(args.path).resolve()
     manifest = load_manifest(project)
     pet_id = str(manifest["id"])
-    out_dir = project / "build" / pet_id
+    out_dir = final_root(project)
+    qa_dir = qa_root(project)
     if (
         not (out_dir / "spritesheet.webp").exists()
         or not (out_dir / "pet.json").exists()
-        or not (out_dir / "validate.json").exists()
+        or not (qa_dir / "validate.json").exists()
     ):
         validation = build_atlas(project)
         errors = [str(error) for error in validation["errors"]]
     else:
-        errors = load_validation_errors(out_dir)
+        errors = load_validation_errors(qa_dir)
     if errors:
         raise SystemExit("Cannot install project with validation errors:\n- " + "\n- ".join(errors))
     pets_dir = Path(args.pets_dir).expanduser().resolve() if args.pets_dir else Path.home() / ".codex/pets"
@@ -1275,7 +1330,7 @@ def parse_args() -> argparse.Namespace:
     sub = parser.add_subparsers(dest="command", required=True)
 
     scaffold = sub.add_parser("scaffold", help="Create a reusable Codex Pet project")
-    scaffold.add_argument("path")
+    scaffold.add_argument("path", nargs="?")
     scaffold.add_argument("--name", required=True)
     scaffold.add_argument("--id")
     scaffold.add_argument("--description")

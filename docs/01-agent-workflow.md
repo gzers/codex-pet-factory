@@ -15,7 +15,7 @@ Inputs can include:
 
 Rules:
 
-- Put all references in `assets/reference/`.
+- Put private source inputs in `build/input/` inside the pet project.
 - Do not overwrite the user's original files.
 - Record source and usage in `docs/00-harness.md` or the project README.
 
@@ -56,8 +56,8 @@ If the user provides only a description:
 Recommended paths:
 
 ```text
-assets/generated/<state>/frames/frame-00.png
-assets/generated/<state>/normalized/frame-00.png
+build/work/<state>/frames/frame-00.png
+build/work/<state>/normalized/frame-00.png
 ```
 
 Requirements:
@@ -78,10 +78,10 @@ PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory validate 
 
 Review:
 
-- `build/<pet-id>/contact-sheet.png`
-- `build/<pet-id>/preview.html`
-- `build/<pet-id>/validate.json`
-- `build/<pet-id>/qa-notes.md`
+- `build/qa/contact-sheet.png`
+- `build/qa/preview.html`
+- `build/qa/validate.json`
+- `build/qa/qa-notes.md`
 - `docs/03-interaction-checklist.md`
 
 ## 7. Install

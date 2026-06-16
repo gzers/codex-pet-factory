@@ -9,7 +9,7 @@ User input:
 Agent steps:
 
 1. `scaffold ./juice-pet --name "Juice" --id juice`
-2. Save the photo in `assets/reference/original/`.
+2. Save the photo in `build/input/original/`.
 3. Write the action design.
 4. Generate a character sheet.
 5. Generate frames for all 9 states.

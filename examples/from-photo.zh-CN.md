@@ -9,7 +9,7 @@ English documentation: [from-photo.md](from-photo.md)
 Agent 步骤：
 
 1. `scaffold ./juice-pet --name "果汁" --id juice`
-2. 保存照片到 `assets/reference/original/`。
+2. 保存照片到 `build/input/original/`。
 3. 写动作设计。
 4. 生成角色设定图。
 5. 生成 9 个状态的动作帧。

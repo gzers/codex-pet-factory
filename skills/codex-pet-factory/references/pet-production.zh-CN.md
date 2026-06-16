@@ -11,7 +11,7 @@ English documentation: [pet-production.md](pet-production.md)
 - 已有 sprite sheet 或旧版 Codex Pet。
 - 品牌或吉祥物 brief。
 
-必须把输入归档到 `assets/reference/`，并记录它们如何被使用。
+必须把输入归档到 `build/input/`，并记录它们如何被使用。
 
 ## 默认 Atlas
 

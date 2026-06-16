@@ -8,7 +8,8 @@ English documentation: [02-production-spec.md](02-production-spec.md)
 - 网格：`8 x 9`
 - Atlas：`1536 x 1872`
 - 格式：WebP RGBA
-- Runtime manifest：`build/<pet-id>/pet.json`
+- Runtime manifest：`build/final/pet.json`
+- 预览和 contact sheet：`build/qa/`
 - 这是一条按行计算的约束，不是全局 5 帧上限。`jumping` 使用 5 帧，其它行使用各自列出的帧数。
 - 每行最后一个已使用帧之后的格子都要保持透明。
 

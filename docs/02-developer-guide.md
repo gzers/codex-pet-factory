@@ -49,26 +49,26 @@ Example:
 }
 ```
 
-`build/<pet-id>/pet.json` is the runtime manifest used by Codex Pets.
+`build/final/pet.json` is the runtime manifest used by Codex Pets.
 When animation frames or per-row frame counts change, rebuild before install so the atlas preview, validation output, and runtime files stay in sync.
 
 ## QA Outputs
 
-Each successful build writes these files to `build/<pet-id>/`:
+Each successful build writes these files to `build/`:
 
-- `spritesheet.webp`: runtime sprite atlas.
-- `pet.json`: runtime manifest.
-- `contact-sheet.png`: static row-by-row inspection sheet.
-- `preview.html`: local interactive animation preview modeled after the Codex Pet runtime states.
-- `validate.json`: machine-readable frame metrics and errors.
-- `qa-notes.md`: concise review notes.
+- `build/final/spritesheet.webp`: runtime sprite atlas.
+- `build/final/pet.json`: runtime manifest.
+- `build/qa/contact-sheet.png`: static row-by-row inspection sheet.
+- `build/qa/preview.html`: local interactive animation preview modeled after the Codex Pet runtime states.
+- `build/qa/validate.json`: machine-readable frame metrics and errors.
+- `build/qa/qa-notes.md`: concise review notes.
 
 ## Normalized Frames
 
 The builder reads only:
 
 ```text
-assets/generated/<state>/normalized/frame-00.png
+build/work/<state>/normalized/frame-00.png
 ```
 
 If a pet needs custom matting, scaling, mirroring, or pixel repair, keep that logic in the specific pet project. Factory should remain generic.

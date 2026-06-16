@@ -2,6 +2,8 @@
 
 English documentation: [README.md](README.md)
 
+这个项目使用 `pets/<pet-id>/` 下的 `build/input/`、`build/work/`、`build/qa/` 和 `build/final/`。
+
 | English | 中文 |
 | --- | --- |
 | [Project README](../README.md) | [项目说明](../README.zh-CN.md) |

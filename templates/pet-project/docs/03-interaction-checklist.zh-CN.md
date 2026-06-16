@@ -2,14 +2,14 @@
 
 English documentation: [03-interaction-checklist.md](03-interaction-checklist.md)
 
-安装宠物前使用这份清单。请结合 `build/<pet-id>/preview.html`、`contact-sheet.png`，以及可用时的 Codex Pet 运行时一起检查。
+安装宠物前使用这份清单。请结合 `build/qa/preview.html`、`build/qa/contact-sheet.png`，以及可用时的 Codex Pet 运行时一起检查。
 
 ## 构建产物
 
-- [ ] `codex-pet-factory build .` 无 validation errors。
-- [ ] `build/<pet-id>/preview.html` 可以本地打开，并能播放每个状态。
-- [ ] `build/<pet-id>/contact-sheet.png` 中所有有效帧都在正确行。
-- [ ] `build/<pet-id>/pet.json` 的 id、显示名和 spritesheet 路径正确。
+- [ ] `codex-pet-factory build pets/example-pet` 无 validation errors。
+- [ ] `build/qa/preview.html` 可以本地打开，并能播放每个状态。
+- [ ] `build/qa/contact-sheet.png` 中所有有效帧都在正确行。
+- [ ] `build/final/pet.json` 的 id、显示名和 spritesheet 路径正确。
 - [ ] 每行的使用帧数都符合制作规格（`jumping` 是 5 帧，其它行使用各自列出的帧数）。
 
 ## 预览控件
@@ -43,5 +43,5 @@ English documentation: [03-interaction-checklist.md](03-interaction-checklist.md
 ## 安装门槛
 
 - [ ] 用户或审核者已经确认 preview page 和 contact sheet。
-- [ ] `codex-pet-factory validate .` 通过。
-- [ ] 只有上方清单通过后，才运行 `codex-pet-factory install .`。
+- [ ] `codex-pet-factory validate pets/example-pet` 通过。
+- [ ] 只有上方清单通过后，才运行 `codex-pet-factory install pets/example-pet`。

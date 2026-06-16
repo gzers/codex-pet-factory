@@ -11,7 +11,7 @@ Accept any of these as source material:
 - Existing sprite sheet or older Codex Pet.
 - Brand or mascot brief.
 
-Always archive inputs in `assets/reference/` and record how they are used.
+Always archive inputs in `build/input/` and record how they are used.
 
 ## Default Atlas
 

@@ -49,26 +49,26 @@ src/codex_pet_factory/cli.py
 }
 ```
 
-`build/<pet-id>/pet.json` 才是 Codex Pets 使用的 runtime manifest。
+`build/final/pet.json` 才是 Codex Pets 使用的 runtime manifest。
 当动画帧或每行帧数预算发生变化时，要先重新 build，再 install，确保 atlas 预览、校验输出和 runtime 文件保持一致。
 
 ## QA 产物
 
-每次成功 build 会在 `build/<pet-id>/` 写入：
+每次成功 build 会在 `build/` 下写入：
 
-- `spritesheet.webp`：运行时 sprite atlas。
-- `pet.json`：运行时 manifest。
-- `contact-sheet.png`：按行展示的静态检查图。
-- `preview.html`：本地交互动画预览页，按 Codex Pet 状态播放。
-- `validate.json`：机器可读的帧指标和错误列表。
-- `qa-notes.md`：简短 QA 记录。
+- `build/final/spritesheet.webp`：运行时 sprite atlas。
+- `build/final/pet.json`：运行时 manifest。
+- `build/qa/contact-sheet.png`：按行展示的静态检查图。
+- `build/qa/preview.html`：本地交互动画预览页，按 Codex Pet 状态播放。
+- `build/qa/validate.json`：机器可读的帧指标和错误列表。
+- `build/qa/qa-notes.md`：简短 QA 记录。
 
 ## Normalized Frames
 
 构建器只读取：
 
 ```text
-assets/generated/<state>/normalized/frame-00.png
+build/work/<state>/normalized/frame-00.png
 ```
 
 如果有更复杂的抠图、缩放、镜像、修边逻辑，应放在具体宠物项目自己的脚本里。Factory 保持通用。

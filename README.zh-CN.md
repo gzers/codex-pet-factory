@@ -1,104 +1,73 @@
 # Codex Pet Factory
 
-Codex Pet Factory 是一个可复用的 Codex 桌面宠物制作工具。它可以从用户图片、角色描述或已有 sprite 素材出发，把一次性的宠物制作流程沉淀成脚手架、sprite atlas 构建器、自动校验器、安装器和给 agent 使用的 skill。
+Codex Pet Factory 是桌面宠物的项目层：一个小 CLI、一个很薄的 skill，以及一个项目模板，用来把宠物工作流做成可重复、可预览、可私有保存的工程。
+
+它不负责替代官方的宠物生成 skill。官方 skill 负责生成，这个仓库负责本地项目结构、预览、校验、打包和安装。
 
 English documentation: [README.md](README.md)
 
-## 文档传送门
+## 保留内容
 
-| English | 中文 |
-| --- | --- |
-| [Documentation Index](docs/README.md) | [文档传送门](docs/README.zh-CN.md) |
-| [Agent Workflow](docs/01-agent-workflow.md) | [Agent 工作流](docs/01-agent-workflow.zh-CN.md) |
-| [Developer Guide](docs/02-developer-guide.md) | [开发者说明](docs/02-developer-guide.zh-CN.md) |
-| Generated Interaction Checklist (`docs/03-interaction-checklist.md` in scaffold projects) | 生成的交互清单（scaffold 项目中的 `docs/03-interaction-checklist.zh-CN.md`） |
-| [Photo Example](examples/from-photo.md) | [照片示例](examples/from-photo.zh-CN.md) |
-| [Skill](skills/codex-pet-factory/SKILL.md) | [Skill 中文说明](skills/codex-pet-factory/SKILL.zh-CN.md) |
-| [Production Reference](skills/codex-pet-factory/references/pet-production.md) | [制作参考](skills/codex-pet-factory/references/pet-production.zh-CN.md) |
+- 项目脚手架
+- build / validate / install
+- 预览和 QA 输出
+- 连接官方生成结果的薄 skill
+- 宠物项目模板
 
-## 适用场景
-
-- 用户给一张宠物、人物、吉祥物或物品图片，要求做成 Codex Pet。
-- 用户只给文字描述，要求生成一个有动作的桌面宠物。
-- 已有 sprite 帧，需要整理成 Codex Pet 可识别的 `spritesheet.webp` 和 `pet.json`。
-- 想把某次宠物制作沉淀成可重复执行的工程闭环。
-
-## 项目结构
+## 目标结构
 
 ```text
-codex-pet-factory/
-├── src/codex_pet_factory/          # CLI 程序
-├── skills/codex-pet-factory/       # 给 Codex/agent 使用的 skill
-├── docs/                           # 中英文文档
-├── examples/                       # 示例输入说明
-└── pyproject.toml
+codex-pet-factory/              # 当前仓库
+├── src/                        # CLI、预览、校验、安装
+├── skills/                     # 很薄的项目 skill
+├── templates/                  # 脚手架模板
+├── tests/
+└── README.md
 ```
 
-## 安装
+```text
+pets/<pet-id>/                  # scaffold 出来的宠物项目
+├── build/                      # 所有生成产物，整棵忽略
+│   ├── input/                  # 私有参考输入
+│   ├── work/                   # 中间帧和规范化帧
+│   ├── qa/                     # 预览、contact sheet、校验
+│   └── final/                  # spritesheet.webp、pet.json
+├── pet-project.json
+└── .gitignore
+```
 
-本地开发建议创建虚拟环境，并以 editable 模式安装：
+## 会提交到 git 的内容
+
+- `src/`
+- `skills/`
+- `templates/`
+- `tests/`
+- `README.md`
+
+## 只保留在本地的内容
+
+- `pets/**/build/`
+- 私密参考输入
+- install 输出
+
+## 当前命令
 
 ```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -e .
-.venv/bin/python -m unittest discover -s tests
+PYTHONPATH=src python3 -m codex_pet_factory scaffold ./pets/juice --name "果汁" --id juice
+PYTHONPATH=src python3 -m codex_pet_factory build ./pets/juice
+PYTHONPATH=src python3 -m codex_pet_factory validate ./pets/juice
+PYTHONPATH=src python3 -m codex_pet_factory install ./pets/juice
 ```
 
-## 核心命令
+## 重构大纲
 
-本地开发时可以直接用 `PYTHONPATH` 运行：
+1. 把根 skill 收成很薄的项目桥接层。
+2. 把所有宠物产物统一放进 `pets/<pet-id>/build/`。
+3. 把私密参考输入放进 `build/input/`。
+4. 保留预览和 QA 作为一级产物。
+5. 结构稳定后，删掉仓库级重复文档。
 
-```bash
-PYTHONPATH=src python3 -m codex_pet_factory scaffold ./my-pet --name "果汁" --id juice
-PYTHONPATH=src python3 -m codex_pet_factory build ./my-pet
-PYTHONPATH=src python3 -m codex_pet_factory validate ./my-pet
-PYTHONPATH=src python3 -m codex_pet_factory install ./my-pet
-```
+## 说明
 
-安装成命令后：
-
-```bash
-codex-pet-factory scaffold ./my-pet --name "果汁" --id juice
-codex-pet-factory build ./my-pet
-codex-pet-factory validate ./my-pet
-codex-pet-factory install ./my-pet
-```
-
-## 产物规范
-
-- 单帧：`192 x 208` 透明 PNG。
-- Atlas：`1536 x 1872` WebP RGBA。
-- 网格：8 列 x 9 行。
-- 规则：每一行都有自己的使用帧数。atlas 固定为 8 列 x 9 行，每行最后一个已使用帧之后的格子都必须保持透明。
-- Manifest：`pet.json`，包含 `id`、`displayName`、`description`、`spritesheetPath`。
-- QA 产物：`contact-sheet.png`、`preview.html`、`validate.json`、`qa-notes.md`。
-- 安装目录：`${HOME}/.codex/pets/<pet-id>/`。
-
-## 标准动作行
-
-| 行号 | 状态 | 使用帧数 | 用途 |
-| --- | --- | ---: | --- |
-| 0 | `idle` | 6 | 待机、呼吸、眨眼、小动作 |
-| 1 | `running-right` | 8 | 向右奔跑 |
-| 2 | `running-left` | 8 | 向左奔跑，建议从右向镜像 |
-| 3 | `waving` | 4 | 打招呼 |
-| 4 | `jumping` | 5 | 跳跃、翻滚、兴奋动作 |
-| 5 | `failed` | 8 | 失败、哭泣、困惑 |
-| 6 | `waiting` | 6 | 等待、躺倒、滚动 |
-| 7 | `running` | 6 | 原地循环动作 |
-| 8 | `review` | 6 | 彩蛋或特殊反应 |
-
-每行最后一个已使用帧之后的格子都要保持透明。
-
-## Agent 用法
-
-给其他开发者或 agent 的推荐调用方式：
-
-1. 使用 `$codex-pet-factory` skill。
-2. 先 scaffold 项目。
-3. 把用户图片或文字描述放入 `assets/reference/`。
-4. 写 `docs/01-action-design.md`，把生产参考里的每行帧数预算写进去。
-5. 生成 `assets/generated/<state>/normalized/frame-XX.png`。
-6. 运行 build 和 validate。
-7. 查看 contact sheet、`preview.html` 和 `docs/03-interaction-checklist.md`。
-8. 用户确认后 install。
+- 官方生成 skill 继续作为宠物艺术生成来源。
+- 这个仓库负责本地项目结构和可安装产物。

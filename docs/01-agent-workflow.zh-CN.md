@@ -15,7 +15,7 @@ English documentation: [01-agent-workflow.md](01-agent-workflow.md)
 
 处理原则：
 
-- 全部放入 `assets/reference/`。
+- 把私有源材料放入宠物项目内的 `build/input/`。
 - 不直接覆盖用户原图。
 - 在 `docs/00-harness.md` 或项目 README 记录来源和用途。
 
@@ -56,8 +56,8 @@ PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory scaffold 
 推荐输出路径：
 
 ```text
-assets/generated/<state>/frames/frame-00.png
-assets/generated/<state>/normalized/frame-00.png
+build/work/<state>/frames/frame-00.png
+build/work/<state>/normalized/frame-00.png
 ```
 
 要求：
@@ -78,10 +78,10 @@ PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory validate 
 
 查看：
 
-- `build/<pet-id>/contact-sheet.png`
-- `build/<pet-id>/preview.html`
-- `build/<pet-id>/validate.json`
-- `build/<pet-id>/qa-notes.md`
+- `build/qa/contact-sheet.png`
+- `build/qa/preview.html`
+- `build/qa/validate.json`
+- `build/qa/qa-notes.md`
 - `docs/03-interaction-checklist.zh-CN.md`
 
 ## 7. 安装

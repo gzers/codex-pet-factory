@@ -8,7 +8,8 @@
 - Grid: `8 x 9`
 - Atlas: `1536 x 1872`
 - Format: WebP RGBA
-- Runtime manifest: `build/<pet-id>/pet.json`
+- Runtime manifest: `build/final/pet.json`
+- Preview and contact sheet: `build/qa/`
 - This is a per-row contract, not a global 5-frame cap. `jumping` uses 5 frames; the other rows use their listed counts.
 - Unused cells after each row's final used frame stay transparent.
 
