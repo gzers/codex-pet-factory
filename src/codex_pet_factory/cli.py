@@ -1016,7 +1016,7 @@ PREVIEW_HTML = """<!doctype html>
 
 def scaffold_project(args: argparse.Namespace) -> None:
     pet_id = args.id or pet_id_from_name(args.name)
-    target = Path(args.path).expanduser().resolve() if args.path else (Path.cwd() / "pets" / pet_id).resolve()
+    target = Path(args.path).expanduser().resolve() if args.path else (Path.cwd() / ".pets" / pet_id).resolve()
     if target.exists() and any(target.iterdir()) and not args.force:
         raise SystemExit(f"Target exists and is not empty: {target}")
     target.mkdir(parents=True, exist_ok=True)

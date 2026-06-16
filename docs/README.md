@@ -10,7 +10,6 @@
 | Agent workflow | [Agent Workflow](01-agent-workflow.md) | [Agent 工作流](01-agent-workflow.zh-CN.md) |
 | Developer guide | [Developer Guide](02-developer-guide.md) | [开发者说明](02-developer-guide.zh-CN.md) |
 | Generated interaction checklist | `docs/03-interaction-checklist.md` in scaffolded projects | `docs/03-interaction-checklist.zh-CN.md` in scaffolded projects |
-| Photo example | [From Photo](../examples/from-photo.md) | [照片示例](../examples/from-photo.zh-CN.md) |
 | Agent skill | [Skill](../.agents/skills/codex-pet-factory/SKILL.md) | [Skill 中文说明](../.agents/skills/codex-pet-factory/SKILL.zh-CN.md) |
 | Production reference | [Production Reference](../.agents/skills/codex-pet-factory/references/pet-production.md) | [制作参考](../.agents/skills/codex-pet-factory/references/pet-production.zh-CN.md) |
 

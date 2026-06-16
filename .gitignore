@@ -32,4 +32,5 @@ env/
 .codex/
 
 # Codex Pet generated outputs inside scaffolded projects
+.pets/
 **/build/

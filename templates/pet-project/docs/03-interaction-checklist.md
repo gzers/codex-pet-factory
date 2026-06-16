@@ -6,7 +6,7 @@ Use this checklist before installing the pet. Mark items only after checking `bu
 
 ## Build Outputs
 
-- [ ] `codex-pet-factory build pets/example-pet` exits with no validation errors.
+- [ ] `codex-pet-factory build .pets/example-pet` exits with no validation errors.
 - [ ] `build/qa/preview.html` opens locally and animates every state.
 - [ ] `build/qa/contact-sheet.png` shows all used frames in the correct rows.
 - [ ] `build/final/pet.json` has the expected id, display name, and spritesheet path.
@@ -43,5 +43,5 @@ Use this checklist before installing the pet. Mark items only after checking `bu
 ## Install Gate
 
 - [ ] User or reviewer has approved the preview page and contact sheet.
-- [ ] `codex-pet-factory validate pets/example-pet` passes.
-- [ ] `codex-pet-factory install pets/example-pet` is run only after the checklist above passes.
+- [ ] `codex-pet-factory validate .pets/example-pet` passes.
+- [ ] `codex-pet-factory install .pets/example-pet` is run only after the checklist above passes.

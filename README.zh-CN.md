@@ -26,7 +26,7 @@ codex-pet-factory/              # 当前仓库
 ```
 
 ```text
-pets/<pet-id>/                  # scaffold 出来的宠物项目
+.pets/<pet-id>/                 # scaffold 出来的宠物项目
 ├── build/                      # 所有生成产物，整棵忽略
 │   ├── input/                  # 私有参考输入
 │   ├── work/                   # 中间帧和规范化帧
@@ -46,23 +46,24 @@ pets/<pet-id>/                  # scaffold 出来的宠物项目
 
 ## 只保留在本地的内容
 
-- `pets/**/build/`
+- `.pets/`
+- `.pets/**/build/`
 - 私密参考输入
 - install 输出
 
 ## 当前命令
 
 ```bash
-PYTHONPATH=src python3 -m codex_pet_factory scaffold ./pets/juice --name "果汁" --id juice
-PYTHONPATH=src python3 -m codex_pet_factory build ./pets/juice
-PYTHONPATH=src python3 -m codex_pet_factory validate ./pets/juice
-PYTHONPATH=src python3 -m codex_pet_factory install ./pets/juice
+PYTHONPATH=src python3 -m codex_pet_factory scaffold ./.pets/juice --name "果汁" --id juice
+PYTHONPATH=src python3 -m codex_pet_factory build ./.pets/juice
+PYTHONPATH=src python3 -m codex_pet_factory validate ./.pets/juice
+PYTHONPATH=src python3 -m codex_pet_factory install ./.pets/juice
 ```
 
 ## 重构大纲
 
 1. 把根 skill 收成很薄的项目桥接层。
-2. 把所有宠物产物统一放进 `pets/<pet-id>/build/`。
+2. 把所有宠物产物统一放进 `.pets/<pet-id>/build/`。
 3. 把私密参考输入放进 `build/input/`。
 4. 保留预览和 QA 作为一级产物。
 5. 把 skill 直接放在 `.agents/skills/`，让 Codex 能识别。

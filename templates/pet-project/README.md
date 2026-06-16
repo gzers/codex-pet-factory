@@ -2,7 +2,7 @@
 
 中文文档：[README.zh-CN.md](README.zh-CN.md)
 
-This template becomes a pet project at `pets/<pet-id>/`.
+This template becomes a pet project at `.pets/<pet-id>/`.
 The Codex-recognized project skill lives in `.agents/skills/` in the repo root.
 
 ## Portal

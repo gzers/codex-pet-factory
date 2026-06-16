@@ -2,7 +2,7 @@
 
 中文文档：[README.zh-CN.md](README.zh-CN.md)
 
-This project uses `build/input/`, `build/work/`, `build/qa/`, and `build/final/` under `pets/<pet-id>/`.
+This project uses `build/input/`, `build/work/`, `build/qa/`, and `build/final/` under `.pets/<pet-id>/`.
 
 | English | 中文 |
 | --- | --- |

@@ -48,7 +48,7 @@ class CliTests(unittest.TestCase):
 
     def test_scaffold_creates_project_under_pets_and_docs(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            project = Path(tmp) / "pets" / "test-pet"
+            project = Path(tmp) / ".pets" / "test-pet"
             result = self.run_cli("scaffold", str(project), "--name", "测试宠物", "--id", "test-pet")
             self.assertEqual(result.returncode, 0, result.stderr)
 
@@ -72,15 +72,15 @@ class CliTests(unittest.TestCase):
     def test_install_rejects_invalid_build(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            project = root / "pets" / "bad-pet"
-            pets_dir = root / "pets"
+            project = root / ".pets" / "bad-pet"
+            install_dir = root / "installed-pets"
             scaffold = self.run_cli("scaffold", str(project), "--name", "坏宠物", "--id", "bad-pet")
             self.assertEqual(scaffold.returncode, 0, scaffold.stderr)
 
-            result = self.run_cli("install", str(project), "--pets-dir", str(pets_dir))
+            result = self.run_cli("install", str(project), "--pets-dir", str(install_dir))
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("Cannot install project with validation errors", result.stderr)
-            self.assertFalse((pets_dir / "bad-pet").exists())
+            self.assertFalse((install_dir / "bad-pet").exists())
 
     @unittest.skipUnless(has_pillow(), "Pillow is not installed in this Python environment.")
     def test_build_with_placeholder_frames(self) -> None:
@@ -88,7 +88,7 @@ class CliTests(unittest.TestCase):
         from codex_pet_factory.spec import CELL_HEIGHT, CELL_WIDTH, DEFAULT_STATES
 
         with tempfile.TemporaryDirectory() as tmp:
-            project = Path(tmp) / "pets" / "complete-pet"
+            project = Path(tmp) / ".pets" / "complete-pet"
             scaffold = self.run_cli("scaffold", str(project), "--name", "完整测试", "--id", "complete-pet")
             self.assertEqual(scaffold.returncode, 0, scaffold.stderr)
 
@@ -115,7 +115,7 @@ class CliTests(unittest.TestCase):
         from codex_pet_factory.spec import CELL_HEIGHT, CELL_WIDTH, DEFAULT_STATES
 
         with tempfile.TemporaryDirectory() as tmp:
-            project = Path(tmp) / "pets" / "validate-pet"
+            project = Path(tmp) / ".pets" / "validate-pet"
             scaffold = self.run_cli("scaffold", str(project), "--name", "验证测试", "--id", "validate-pet")
             self.assertEqual(scaffold.returncode, 0, scaffold.stderr)
 

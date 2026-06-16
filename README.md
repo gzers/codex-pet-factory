@@ -26,7 +26,7 @@ codex-pet-factory/              # this repo
 ```
 
 ```text
-pets/<pet-id>/                  # generated pet project, created by scaffold
+.pets/<pet-id>/                 # generated pet project, created by scaffold
 ├── build/                      # all generated outputs, ignored by git
 │   ├── input/                  # private references and working inputs
 │   ├── work/                   # intermediate frames and normalized frames
@@ -46,23 +46,24 @@ pets/<pet-id>/                  # generated pet project, created by scaffold
 
 ## What is local only
 
-- `pets/**/build/`
+- `.pets/`
+- `.pets/**/build/`
 - private reference input
 - install output
 
 ## Current commands
 
 ```bash
-PYTHONPATH=src python3 -m codex_pet_factory scaffold ./pets/juice --name "Juice" --id juice
-PYTHONPATH=src python3 -m codex_pet_factory build ./pets/juice
-PYTHONPATH=src python3 -m codex_pet_factory validate ./pets/juice
-PYTHONPATH=src python3 -m codex_pet_factory install ./pets/juice
+PYTHONPATH=src python3 -m codex_pet_factory scaffold ./.pets/juice --name "Juice" --id juice
+PYTHONPATH=src python3 -m codex_pet_factory build ./.pets/juice
+PYTHONPATH=src python3 -m codex_pet_factory validate ./.pets/juice
+PYTHONPATH=src python3 -m codex_pet_factory install ./.pets/juice
 ```
 
 ## Refactor outline
 
 1. Shrink the root skill to a thin project bridge.
-2. Keep all pet output under `pets/<pet-id>/build/`.
+2. Keep all pet output under `.pets/<pet-id>/build/`.
 3. Move private references into `build/input/`.
 4. Keep preview and QA as first-class outputs.
 5. Keep the skill in `.agents/skills/` so Codex can discover it directly.

@@ -10,7 +10,6 @@ English documentation: [README.md](README.md)
 | Agent 工作流 | [Agent Workflow](01-agent-workflow.md) | [Agent 工作流](01-agent-workflow.zh-CN.md) |
 | 开发者说明 | [Developer Guide](02-developer-guide.md) | [开发者说明](02-developer-guide.zh-CN.md) |
 | 生成的交互清单 | scaffold 项目中的 `docs/03-interaction-checklist.md` | scaffold 项目中的 `docs/03-interaction-checklist.zh-CN.md` |
-| 照片示例 | [From Photo](../examples/from-photo.md) | [照片示例](../examples/from-photo.zh-CN.md) |
 | Agent Skill | [Skill](../.agents/skills/codex-pet-factory/SKILL.md) | [Skill 中文说明](../.agents/skills/codex-pet-factory/SKILL.zh-CN.md) |
 | 制作参考 | [Production Reference](../.agents/skills/codex-pet-factory/references/pet-production.md) | [制作参考](../.agents/skills/codex-pet-factory/references/pet-production.zh-CN.md) |
 

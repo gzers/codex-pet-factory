@@ -6,7 +6,7 @@ English documentation: [03-interaction-checklist.md](03-interaction-checklist.md
 
 ## 构建产物
 
-- [ ] `codex-pet-factory build pets/example-pet` 无 validation errors。
+- [ ] `codex-pet-factory build .pets/example-pet` 无 validation errors。
 - [ ] `build/qa/preview.html` 可以本地打开，并能播放每个状态。
 - [ ] `build/qa/contact-sheet.png` 中所有有效帧都在正确行。
 - [ ] `build/final/pet.json` 的 id、显示名和 spritesheet 路径正确。
@@ -43,5 +43,5 @@ English documentation: [03-interaction-checklist.md](03-interaction-checklist.md
 ## 安装门槛
 
 - [ ] 用户或审核者已经确认 preview page 和 contact sheet。
-- [ ] `codex-pet-factory validate pets/example-pet` 通过。
-- [ ] 只有上方清单通过后，才运行 `codex-pet-factory install pets/example-pet`。
+- [ ] `codex-pet-factory validate .pets/example-pet` 通过。
+- [ ] 只有上方清单通过后，才运行 `codex-pet-factory install .pets/example-pet`。

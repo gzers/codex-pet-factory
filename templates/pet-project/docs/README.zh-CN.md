@@ -2,7 +2,7 @@
 
 English documentation: [README.md](README.md)
 
-这个项目使用 `pets/<pet-id>/` 下的 `build/input/`、`build/work/`、`build/qa/` 和 `build/final/`。
+这个项目使用 `.pets/<pet-id>/` 下的 `build/input/`、`build/work/`、`build/qa/` 和 `build/final/`。
 
 | English | 中文 |
 | --- | --- |
