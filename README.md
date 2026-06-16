@@ -11,7 +11,7 @@ It is not meant to replace the official pet-generation skill. The upstream skill
 - project scaffolding
 - build / validate / install
 - preview and QA outputs
-- a thin project skill that bridges official generation output into this repo's layout
+- a thin project skill that bridges official generation output into this repo's layout, living in `.agents/skills/`
 - a template for per-pet projects
 
 ## Target layout
@@ -19,7 +19,7 @@ It is not meant to replace the official pet-generation skill. The upstream skill
 ```text
 codex-pet-factory/              # this repo
 ├── src/                        # CLI, preview, validation, install
-├── skills/                     # thin project skill
+├── .agents/skills/             # Codex-recognized project skill entry
 ├── templates/                  # scaffold template
 ├── tests/
 └── README.md
@@ -39,7 +39,7 @@ pets/<pet-id>/                  # generated pet project, created by scaffold
 ## What is committed
 
 - `src/`
-- `skills/`
+- `.agents/skills/`
 - `templates/`
 - `tests/`
 - `README.md`
@@ -65,7 +65,7 @@ PYTHONPATH=src python3 -m codex_pet_factory install ./pets/juice
 2. Keep all pet output under `pets/<pet-id>/build/`.
 3. Move private references into `build/input/`.
 4. Keep preview and QA as first-class outputs.
-5. Remove redundant repository-level docs once the new layout is stable.
+5. Keep the skill in `.agents/skills/` so Codex can discover it directly.
 
 ## Notes
 

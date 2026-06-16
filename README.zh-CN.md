@@ -11,7 +11,7 @@ English documentation: [README.md](README.md)
 - 项目脚手架
 - build / validate / install
 - 预览和 QA 输出
-- 连接官方生成结果的薄 skill
+- 位于 `.agents/skills/` 的薄 skill
 - 宠物项目模板
 
 ## 目标结构
@@ -19,7 +19,7 @@ English documentation: [README.md](README.md)
 ```text
 codex-pet-factory/              # 当前仓库
 ├── src/                        # CLI、预览、校验、安装
-├── skills/                     # 很薄的项目 skill
+├── .agents/skills/             # Codex 可识别的项目 skill 入口
 ├── templates/                  # 脚手架模板
 ├── tests/
 └── README.md
@@ -39,7 +39,7 @@ pets/<pet-id>/                  # scaffold 出来的宠物项目
 ## 会提交到 git 的内容
 
 - `src/`
-- `skills/`
+- `.agents/skills/`
 - `templates/`
 - `tests/`
 - `README.md`
@@ -65,7 +65,7 @@ PYTHONPATH=src python3 -m codex_pet_factory install ./pets/juice
 2. 把所有宠物产物统一放进 `pets/<pet-id>/build/`。
 3. 把私密参考输入放进 `build/input/`。
 4. 保留预览和 QA 作为一级产物。
-5. 结构稳定后，删掉仓库级重复文档。
+5. 把 skill 直接放在 `.agents/skills/`，让 Codex 能识别。
 
 ## 说明
 

@@ -3,6 +3,7 @@
 English documentation: [README.md](README.md)
 
 这个模板会落到 `pets/<pet-id>/` 作为宠物项目。
+Codex 可识别的项目 skill 直接放在仓库根目录的 `.agents/skills/`。
 
 ## 传送门
 

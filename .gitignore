@@ -26,7 +26,9 @@ env/
 .vscode/
 
 # Local Codex/agent files
-.agents/
+.agents/*
+!.agents/skills/
+!.agents/skills/**
 .codex/
 
 # Codex Pet generated outputs inside scaffolded projects

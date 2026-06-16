@@ -85,17 +85,17 @@ The build test is skipped when Pillow is not available. `--help` and `scaffold` 
 
 ## Skill
 
-The skill lives at:
+The Codex-recognized project skill lives at:
 
 ```text
-skills/codex-pet-factory/
+.agents/skills/codex-pet-factory/
 ```
 
-The skill teaches agents the harness workflow. It does not replace the CLI.
+It teaches agents the harness workflow. It does not replace the CLI.
 
 Skill documents:
 
-- English: [SKILL.md](../skills/codex-pet-factory/SKILL.md)
-- Chinese: [SKILL.zh-CN.md](../skills/codex-pet-factory/SKILL.zh-CN.md)
-- Production reference: [pet-production.md](../skills/codex-pet-factory/references/pet-production.md)
-- Chinese production reference: [pet-production.zh-CN.md](../skills/codex-pet-factory/references/pet-production.zh-CN.md)
+- English: [SKILL.md](../.agents/skills/codex-pet-factory/SKILL.md)
+- Chinese: [SKILL.zh-CN.md](../.agents/skills/codex-pet-factory/SKILL.zh-CN.md)
+- Production reference: [pet-production.md](../.agents/skills/codex-pet-factory/references/pet-production.md)
+- Chinese production reference: [pet-production.zh-CN.md](../.agents/skills/codex-pet-factory/references/pet-production.zh-CN.md)

@@ -85,17 +85,17 @@ python3 -m unittest discover -s tests
 
 ## Skill
 
-Skill 位于：
+Codex 可识别的项目 skill 位于：
 
 ```text
-skills/codex-pet-factory/
+.agents/skills/codex-pet-factory/
 ```
 
 它用于告诉 agent 如何按 harness 工作，而不是替代 CLI。
 
 Skill 文档：
 
-- 英文：[SKILL.md](../skills/codex-pet-factory/SKILL.md)
-- 中文：[SKILL.zh-CN.md](../skills/codex-pet-factory/SKILL.zh-CN.md)
-- 制作参考英文：[pet-production.md](../skills/codex-pet-factory/references/pet-production.md)
-- 制作参考中文：[pet-production.zh-CN.md](../skills/codex-pet-factory/references/pet-production.zh-CN.md)
+- 英文：[SKILL.md](../.agents/skills/codex-pet-factory/SKILL.md)
+- 中文：[SKILL.zh-CN.md](../.agents/skills/codex-pet-factory/SKILL.zh-CN.md)
+- 制作参考英文：[pet-production.md](../.agents/skills/codex-pet-factory/references/pet-production.md)
+- 制作参考中文：[pet-production.zh-CN.md](../.agents/skills/codex-pet-factory/references/pet-production.zh-CN.md)
