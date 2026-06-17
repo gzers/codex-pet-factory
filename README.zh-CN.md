@@ -18,7 +18,7 @@ English documentation: [README.md](README.md)
 
 ```text
 codex-pet-factory/              # 当前仓库
-├── src/                        # CLI、预览、校验、安装
+├── src/                        # builder.py、spec.py、预览、校验、安装
 ├── .agents/skills/             # Codex 可识别的项目 skill 入口
 ├── templates/                  # 脚手架模板
 ├── tests/
@@ -54,10 +54,10 @@ codex-pet-factory/              # 当前仓库
 ## 当前命令
 
 ```bash
-PYTHONPATH=src python3 -m codex_pet_factory scaffold ./.pets/juice --name "果汁" --id juice
-PYTHONPATH=src python3 -m codex_pet_factory build ./.pets/juice
-PYTHONPATH=src python3 -m codex_pet_factory validate ./.pets/juice
-PYTHONPATH=src python3 -m codex_pet_factory install ./.pets/juice
+PYTHONPATH=src python3 -m builder scaffold ./.pets/juice --name "果汁" --id juice
+PYTHONPATH=src python3 -m builder build ./.pets/juice
+PYTHONPATH=src python3 -m builder validate ./.pets/juice
+PYTHONPATH=src python3 -m builder install ./.pets/juice
 ```
 
 ## 重构大纲

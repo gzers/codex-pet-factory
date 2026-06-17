@@ -22,7 +22,7 @@ English documentation: [01-agent-workflow.md](01-agent-workflow.md)
 ## 2. 创建项目
 
 ```bash
-PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory scaffold ./my-pet --name "宠物名" --id pet-id
+PYTHONPATH=/path/to/codex-pet-factory/src python3 -m builder scaffold ./.pets/pet-id --name "宠物名" --id pet-id
 ```
 
 `--name` 是 Codex UI 里显示的名字。`--id` 建议使用小写英文、数字和短横线。
@@ -72,8 +72,8 @@ build/work/<state>/normalized/frame-00.png
 ## 6. 构建和校验
 
 ```bash
-PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory build ./my-pet
-PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory validate ./my-pet
+PYTHONPATH=/path/to/codex-pet-factory/src python3 -m builder build ./.pets/pet-id
+PYTHONPATH=/path/to/codex-pet-factory/src python3 -m builder validate ./.pets/pet-id
 ```
 
 查看：
@@ -89,7 +89,7 @@ PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory validate 
 只有在自动校验、预览页面、contact sheet 和交互清单都通过后安装：
 
 ```bash
-PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory install ./my-pet
+PYTHONPATH=/path/to/codex-pet-factory/src python3 -m builder install ./.pets/pet-id
 ```
 
 安装输出：

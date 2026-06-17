@@ -22,7 +22,7 @@ Rules:
 ## 2. Scaffold the Project
 
 ```bash
-PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory scaffold ./my-pet --name "Pet Name" --id pet-id
+PYTHONPATH=/path/to/codex-pet-factory/src python3 -m builder scaffold ./.pets/pet-id --name "Pet Name" --id pet-id
 ```
 
 `--name` is the display name shown in Codex UI. `--id` should use lowercase letters, numbers, and hyphens.
@@ -72,8 +72,8 @@ Requirements:
 ## 6. Build and Validate
 
 ```bash
-PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory build ./my-pet
-PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory validate ./my-pet
+PYTHONPATH=/path/to/codex-pet-factory/src python3 -m builder build ./.pets/pet-id
+PYTHONPATH=/path/to/codex-pet-factory/src python3 -m builder validate ./.pets/pet-id
 ```
 
 Review:
@@ -89,7 +89,7 @@ Review:
 Install only after automatic validation, preview page review, contact sheet review, and interaction checklist pass:
 
 ```bash
-PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory install ./my-pet
+PYTHONPATH=/path/to/codex-pet-factory/src python3 -m builder install ./.pets/pet-id
 ```
 
 Install output:

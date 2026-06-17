@@ -2,11 +2,11 @@
 
 English documentation: [SKILL.md](SKILL.md)
 
-这个 skill 用于把官方宠物生成结果桥接到本仓库的本地 `pets/<pet-id>/` 项目结构中。
+这个 skill 用于把官方宠物生成结果桥接到本仓库的本地 `.pets/<pet-id>/` 项目结构中。
 
 ## 工作流
 
-1. 在 `pets/<pet-id>/` 打开或创建宠物项目。
+1. 在 `.pets/<pet-id>/` 打开或创建宠物项目。
 2. 把源输入放入 `build/input/`。
 3. 在生成帧之前，先写或更新 `docs/01-action-design.md`。
 4. 把工作帧生成到 `build/work/`，再规范化为透明的 `192 x 208` PNG。
@@ -17,16 +17,16 @@ English documentation: [SKILL.md](SKILL.md)
 ## 命令
 
 ```bash
-codex-pet-factory scaffold pets/juice --name "果汁" --id juice
-codex-pet-factory build pets/juice
-codex-pet-factory validate pets/juice
-codex-pet-factory install pets/juice
+codex-pet-factory scaffold .pets/juice --name "果汁" --id juice
+codex-pet-factory build .pets/juice
+codex-pet-factory validate .pets/juice
+codex-pet-factory install .pets/juice
 ```
 
 如果 CLI 尚未安装，可以从仓库运行：
 
 ```bash
-PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory scaffold pets/juice --name "果汁" --id juice
+PYTHONPATH=/path/to/codex-pet-factory/src python3 -m builder scaffold .pets/juice --name "果汁" --id juice
 ```
 
 ## 制作规则

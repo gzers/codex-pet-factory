@@ -22,7 +22,7 @@ Codex Pet Factory 只负责稳定工程部分：
 入口：
 
 ```text
-src/codex_pet_factory/cli.py
+src/builder.py
 ```
 
 命令：

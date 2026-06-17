@@ -1,6 +1,6 @@
 ---
 name: codex-pet-factory
-description: Use when a user wants to create, customize, package, validate, or install a Codex desktop pet. Bridges official pet-generation output into this repo's local `pets/<pet-id>/` project layout.
+description: Use when a user wants to create, customize, package, validate, or install a Codex desktop pet. Bridges official pet-generation output into this repo's local `.pets/<pet-id>/` project layout.
 metadata:
   short-description: Build reusable Codex desktop pets
 ---
@@ -13,7 +13,7 @@ Use this skill to bridge official pet-generation output into a local Codex pet p
 
 ## Workflow
 
-1. Create or open the pet project at `pets/<pet-id>/`.
+1. Create or open the pet project at `.pets/<pet-id>/`.
 2. Put source inputs in `build/input/`.
 3. Write or update `docs/01-action-design.md` before generating frames.
 4. Generate working frames into `build/work/`, then normalize them to transparent `192 x 208` PNGs.
@@ -24,16 +24,16 @@ Use this skill to bridge official pet-generation output into a local Codex pet p
 ## Commands
 
 ```bash
-codex-pet-factory scaffold pets/juice --name "果汁" --id juice
-codex-pet-factory build pets/juice
-codex-pet-factory validate pets/juice
-codex-pet-factory install pets/juice
+codex-pet-factory scaffold .pets/juice --name "果汁" --id juice
+codex-pet-factory build .pets/juice
+codex-pet-factory validate .pets/juice
+codex-pet-factory install .pets/juice
 ```
 
 If the CLI is not installed, run it from the repo:
 
 ```bash
-PYTHONPATH=/path/to/codex-pet-factory/src python3 -m codex_pet_factory scaffold pets/juice --name "果汁" --id juice
+PYTHONPATH=/path/to/codex-pet-factory/src python3 -m builder scaffold .pets/juice --name "果汁" --id juice
 ```
 
 ## Production Rules

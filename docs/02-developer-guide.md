@@ -22,7 +22,7 @@ It does not bind the workflow to a specific image generation provider. Agents ma
 Entry point:
 
 ```text
-src/codex_pet_factory/cli.py
+src/builder.py
 ```
 
 Commands:

@@ -6,10 +6,7 @@ import json
 import shutil
 from pathlib import Path
 
-from .spec import CELL_HEIGHT, CELL_WIDTH, COLUMNS, DEFAULT_STATES, pet_id_from_name
-
-
-ROOT = Path(__file__).resolve().parents[2]
+from spec import CELL_HEIGHT, CELL_WIDTH, COLUMNS, DEFAULT_STATES, pet_id_from_name
 
 
 def require_pillow():
@@ -1269,7 +1266,7 @@ def write_project_docs(target: Path, manifest: dict[str, object]) -> None:
 
 def validate_project(args: argparse.Namespace) -> None:
     project = Path(args.path).resolve()
-    manifest = load_manifest(project)
+    load_manifest(project)
     validation = build_atlas(project)
     print(
         json.dumps(
@@ -1356,3 +1353,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     args.func(args)
+
+
+if __name__ == "__main__":
+    main()

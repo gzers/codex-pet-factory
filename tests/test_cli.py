@@ -32,7 +32,7 @@ class CliTests(unittest.TestCase):
         env = os.environ.copy()
         env["PYTHONPATH"] = str(SRC)
         return subprocess.run(
-            [sys.executable, "-m", "codex_pet_factory", *args],
+            [sys.executable, "-m", "builder", *args],
             cwd=REPO,
             env=env,
             check=False,
@@ -85,7 +85,7 @@ class CliTests(unittest.TestCase):
     @unittest.skipUnless(has_pillow(), "Pillow is not installed in this Python environment.")
     def test_build_with_placeholder_frames(self) -> None:
         from PIL import Image, ImageDraw
-        from codex_pet_factory.spec import CELL_HEIGHT, CELL_WIDTH, DEFAULT_STATES
+        from spec import CELL_HEIGHT, CELL_WIDTH, DEFAULT_STATES
 
         with tempfile.TemporaryDirectory() as tmp:
             project = Path(tmp) / ".pets" / "complete-pet"
@@ -112,7 +112,7 @@ class CliTests(unittest.TestCase):
     @unittest.skipUnless(has_pillow(), "Pillow is not installed in this Python environment.")
     def test_validate_with_placeholder_frames(self) -> None:
         from PIL import Image, ImageDraw
-        from codex_pet_factory.spec import CELL_HEIGHT, CELL_WIDTH, DEFAULT_STATES
+        from spec import CELL_HEIGHT, CELL_WIDTH, DEFAULT_STATES
 
         with tempfile.TemporaryDirectory() as tmp:
             project = Path(tmp) / ".pets" / "validate-pet"

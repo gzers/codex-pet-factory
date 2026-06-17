@@ -18,7 +18,7 @@ It is not meant to replace the official pet-generation skill. The upstream skill
 
 ```text
 codex-pet-factory/              # this repo
-├── src/                        # CLI, preview, validation, install
+├── src/                        # builder.py, spec.py, preview, validation, install
 ├── .agents/skills/             # Codex-recognized project skill entry
 ├── templates/                  # scaffold template
 ├── tests/
@@ -54,10 +54,10 @@ codex-pet-factory/              # this repo
 ## Current commands
 
 ```bash
-PYTHONPATH=src python3 -m codex_pet_factory scaffold ./.pets/juice --name "Juice" --id juice
-PYTHONPATH=src python3 -m codex_pet_factory build ./.pets/juice
-PYTHONPATH=src python3 -m codex_pet_factory validate ./.pets/juice
-PYTHONPATH=src python3 -m codex_pet_factory install ./.pets/juice
+PYTHONPATH=src python3 -m builder scaffold ./.pets/juice --name "Juice" --id juice
+PYTHONPATH=src python3 -m builder build ./.pets/juice
+PYTHONPATH=src python3 -m builder validate ./.pets/juice
+PYTHONPATH=src python3 -m builder install ./.pets/juice
 ```
 
 ## Refactor outline
